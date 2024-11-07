@@ -23,7 +23,7 @@ public class ReturnMenu : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!gStates.isPaused)
             {
