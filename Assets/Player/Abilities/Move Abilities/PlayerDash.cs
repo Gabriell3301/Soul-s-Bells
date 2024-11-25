@@ -7,6 +7,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float dashSpeed = 50f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 0.4f;
+    private bool hasDashedInAir;
 
     private bool canDash = true;
     private TrailRenderer trailRender;
@@ -26,7 +27,15 @@ public class PlayerDash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X) && canDash)
+        // Permite dash se no chão
+        if (pState.Grounded)
+        {
+            canDash = true;
+            hasDashedInAir = false;
+        }
+
+        // Dash com cooldown ou controle de pulo
+        if (Input.GetKeyDown(KeyCode.X) && canDash && (!hasDashedInAir || pState.Grounded))
         {
             StartCoroutine(Dashing());
         }
@@ -35,6 +44,13 @@ public class PlayerDash : MonoBehaviour
     {
         // Inicia o dash
         canDash = false;
+
+        // Marca que o jogador usou o dash no ar, se não estiver no chão
+        if (!pState.Grounded)
+        {
+            hasDashedInAir = true;
+        }
+
         pState.SetDashing(true);
         trailRender.emitting = true;
 
@@ -43,12 +59,18 @@ public class PlayerDash : MonoBehaviour
         rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0); // Define a velocidade do dash no eixo horizontal
 
         yield return new WaitForSeconds(dashDuration); // Aguarda a duração do dash
+
         // Termina o dash
         trailRender.emitting = false;
         rb.gravityScale = originalGravity;
         pState.SetDashing(false);
 
-        yield return new WaitForSeconds(dashCooldown); // Espera o cooldown antes de poder dashar novamente
-        canDash = true;
+        // Espera o cooldown antes de permitir o próximo dash
+        yield return new WaitForSeconds(dashCooldown);
+
+        if (pState.Grounded) // Se estiver no chão, pode dashar novamente
+        {
+            canDash = true;
+        }
     }
 }

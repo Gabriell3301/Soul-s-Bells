@@ -7,15 +7,15 @@ public class PlayerStateList : MonoBehaviour
 
     public bool walking;
     public bool jumping;
-    public bool recentJump;
+    public bool isCharging;
     public bool attacking;
     public bool parring;
     public bool Grounded;
     public bool isDashing;
     
-    public void SetRecentJump(bool isRecentJumping)
+    public void SetCharging(bool ischarging)
     {
-        recentJump = isRecentJumping;
+        isCharging = ischarging;
     }
     public void SetDashing(bool isDash)
     {

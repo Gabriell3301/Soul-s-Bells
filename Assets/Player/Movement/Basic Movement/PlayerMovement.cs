@@ -80,10 +80,13 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        GetAxis();
-        MoveX();
-        Flip();
-        Jump();
+        if(!pstates.isCharging)
+        {
+            GetAxis();
+            MoveX();
+            Flip();
+            Jump();
+        }
     }
     private void GetAxis()
     {
