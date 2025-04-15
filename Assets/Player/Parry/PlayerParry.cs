@@ -1,122 +1,116 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerParry : MonoBehaviour
 {
     [Header("Parry Settings")]
-    [SerializeField] private float parryWindow = 0.2f; // Tempo de reação do parry
-    private bool canParry = false;
+    [SerializeField] private float parryWindow = 0.1f; // Tempo da janela de parry (em segundos)
+    [SerializeField] private float parryCooldown = 0.4f; // Tempo de recarga do parry (em segundos)
+    private float parryStartTime = 0f; // Momento em que o parry foi iniciado
+    private bool parryOnCooldown = false; // Indica se o parry está em cooldown
+    private bool parryAttempted = false; // Indica se o parry foi tentado
+    private int hitsToTake;
 
-    [Header("Parry Cooldown")]
-    [SerializeField] private float parryCooldown = 0.4f;
-    private bool parryOnCooldown = false;
+    private PlayerParryFeedback feedback; // Referência para feedback visual/sonoro
+    private PlayerParryManage manager; // Gerenciador de eventos de parry
+    private PlayerControls playerControls; // Controles do jogador
 
-    private PlayerStateList pState;
-    private SpriteRenderer warningEnemyAttack;
-    private bool enemyAttackDetected = false;
-    private EnemyAttack attackEnemy;
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+        playerControls.Player.Parry.performed += OnParryPerformed;
+    }
 
     private void Start()
     {
-        pState = GetComponentInParent<PlayerStateList>();
-        warningEnemyAttack = GetComponentInChildren<SpriteRenderer>();
-
-        if (warningEnemyAttack != null)
+        feedback = GetComponentInChildren<PlayerParryFeedback>();
+        manager = GetComponent<PlayerParryManage>();
+        if (feedback == null || manager == null)
         {
-            warningEnemyAttack.color = Color.clear;
-        }
-        else
-        {
-            Debug.LogWarning("Nenhum SpriteRenderer encontrado no filho.");
+            Debug.LogError("PlayerParry: Feedback ou Manager não encontrado!");
         }
     }
 
-    private void Update()
+    private void OnEnable() => playerControls.Enable();
+
+    private void OnDisable() => playerControls.Disable();
+    public bool HasParried()
     {
-        // Checa se o jogador apertou "C" e se pode realizar o parry
-        if (!parryOnCooldown && Input.GetKeyDown(KeyCode.C))
+        if (parryAttempted && Time.time <= parryStartTime + parryWindow && manager.IsEnemyAttackDetected())
         {
-            StartCoroutine(PerformParry());
+            parryAttempted = false; // Reseta o estado após a verificação
+            return true;
+        }
+        return false;
+    }
+    private void OnParryPerformed(InputAction.CallbackContext context)
+    {
+        if (!parryOnCooldown)
+        {
+            TryParry();
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /// <summary>
+    /// Abre a janela de parry e exibe o feedback amarelo.
+    /// </summary>
+    public void OpenParryWindow(int hits)
     {
-        if (collision.CompareTag("EnemyAttack"))
-        {
-            attackEnemy = collision.GetComponent<EnemyAttack>();
-            if (attackEnemy != null)
-            {
-                enemyAttackDetected = true;
-
-                if (!parryOnCooldown)
-                {
-                    StartCoroutine(StartParryWindow());
-                }
-            }
-        }
+        hitsToTake = hits;
+        parryStartTime = Time.time;
+        feedback.ShowParryWindow(); // Exibe o aviso amarelo de parry
+        StartCoroutine(CloseParryWindow());
     }
 
-    private IEnumerator StartParryWindow()
+    /// <summary>
+    /// Fecha a janela de parry após o tempo definido.
+    /// </summary>
+    private IEnumerator CloseParryWindow()
     {
-        // Abre a janela de parry
-        canParry = true;
-        warningEnemyAttack.color = Color.yellow;
-
         yield return new WaitForSeconds(parryWindow);
 
-        // Fecha a janela de parry
-        canParry = false;
-        warningEnemyAttack.color = Color.clear;
-
-        if (enemyAttackDetected) // O jogador não realizou o parry a tempo
+        if (!parryAttempted && manager.IsEnemyAttackDetected())
         {
-            Debug.Log("Recebeu ataque!");
+            manager.HandleParryFailure(hitsToTake); // Marca falha do parry se o jogador não tentou
         }
+
+        feedback.HideParryWindow(); // Esconde o aviso amarelo após a janela expirar
     }
-
-    private IEnumerator PerformParry()
+    /// <summary>
+    /// Tenta executar o parry, mostrando sucesso ou falha
+    /// </summary>
+    private void TryParry()
     {
-        pState.SetParring(true);
-
-        if (canParry && enemyAttackDetected)
+        if (!manager.IsEnemyAttackDetected())
         {
-            // Sucesso no parry
-            Debug.Log("Parry bem-sucedido!");
-            attackEnemy.Destroythis();
-            warningEnemyAttack.color = Color.green;
+            Debug.Log("Nenhum ataque detectado para parry.");
+            return;
+        }
 
-            // Evite que o jogador tome dano do ataque detectado
-            enemyAttackDetected = false;
+        parryAttempted = true;
+
+        if (Time.time <= parryStartTime + parryWindow)
+        {
+            manager.HandleParrySuccess();
+            Debug.Log("Acertou o parry.");
         }
         else
         {
-            Debug.Log("Falhou o parry!");
-            if (enemyAttackDetected)
-            {
-                Debug.Log("Recebeu ataque!");
-            }
+            manager.HandleParryFailure(hitsToTake);
+            Debug.Log("Errou o parry ou não fez parry a tempo.");
         }
-
-        yield return new WaitForSeconds(parryWindow); // Garante que o parry termine antes de iniciar o cooldown
-        pState.SetParring(false);
-
-        StartCoroutine(ParryCooldown());
+        
+        StartCoroutine(StartCooldown());
     }
-
-    private IEnumerator ParryCooldown()
+    /// <summary>
+    /// Começa o tempo de espera para usar o Parry novamente
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator StartCooldown()
     {
         parryOnCooldown = true;
         yield return new WaitForSeconds(parryCooldown);
         parryOnCooldown = false;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("EnemyAttack"))
-        {
-            // Ataque saiu da zona de detecção
-            enemyAttackDetected = false;
-        }
     }
 }

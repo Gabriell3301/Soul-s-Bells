@@ -1,19 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static Cinemachine.DocumentationSortingAttribute;
+using static UnityEngine.Mesh;
 
-public class PlayerDash : MonoBehaviour
+public class PlayerDash : MonoBehaviour, IAbility
 {
-    [SerializeField] private float dashSpeed = 50f;
-    [SerializeField] private float dashDuration = 0.2f;
-    [SerializeField] private float dashCooldown = 0.4f;
-    private bool hasDashedInAir;
+    private float dashSpeed;
+    private float dashDuration;
+    private float dashCooldown;
 
+    private bool hasDashedInAir;
+    private bool dashInCoolDown = false;
     private bool canDash = true;
+    private float originalGravity;
     private TrailRenderer trailRender;
     private Rigidbody2D rb;
-    PlayerStateList pState;
-    // Start is called before the first frame update
+    private PlayerStateList pState;
+    private PlayerControls playerControls;
+
+    private DashData dashData;
+
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+        playerControls.Player.Dash.performed += PerformedDash;
+    }
+    public void Initialize(AbilityData data)
+    {
+        dashData = data as DashData;
+        if (dashData == null)
+        {
+            Debug.LogError("DashData inválido ao inicializar PlayerDash.");
+            return;
+        }
+        dashSpeed = dashData.dashSpeed;
+        dashDuration = dashData.dashDuration;
+        dashCooldown = dashData.dashCooldown;
+    }
     void Start()
     {
         trailRender = GetComponent<TrailRenderer>();
@@ -22,29 +48,34 @@ public class PlayerDash : MonoBehaviour
         {
             Destroy(this);
         }
+        originalGravity = rb.gravityScale;
     }
 
-    // Update is called once per frame
+    private void OnEnable() => playerControls.Enable();
+    private void OnDisable() => playerControls.Disable();
+
     void Update()
     {
-        // Permite dash se no chão
         if (pState.Grounded)
         {
             canDash = true;
             hasDashedInAir = false;
         }
+    }
 
-        // Dash com cooldown ou controle de pulo
-        if (Input.GetKeyDown(KeyCode.X) && canDash && (!hasDashedInAir || pState.Grounded))
+    private void PerformedDash(InputAction.CallbackContext context)
+    {
+        if (canDash && (!hasDashedInAir || pState.Grounded) && !pState.isCharging && !dashInCoolDown)
         {
             StartCoroutine(Dashing());
         }
     }
+
     private IEnumerator Dashing()
     {
         // Inicia o dash
         canDash = false;
-
+        dashInCoolDown = true;
         // Marca que o jogador usou o dash no ar, se não estiver no chão
         if (!pState.Grounded)
         {
@@ -54,7 +85,6 @@ public class PlayerDash : MonoBehaviour
         pState.SetDashing(true);
         trailRender.emitting = true;
 
-        float originalGravity = rb.gravityScale;
         rb.gravityScale = 0;
         rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0); // Define a velocidade do dash no eixo horizontal
 
@@ -68,9 +98,15 @@ public class PlayerDash : MonoBehaviour
         // Espera o cooldown antes de permitir o próximo dash
         yield return new WaitForSeconds(dashCooldown);
 
-        if (pState.Grounded) // Se estiver no chão, pode dashar novamente
+        if (pState.Grounded)
         {
+            dashInCoolDown = false;
             canDash = true;
+        }
+        else
+        {
+            // No ar, permite o próximo dash após o cooldown
+            dashInCoolDown = false;
         }
     }
 }

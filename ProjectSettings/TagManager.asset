@@ -8,6 +8,8 @@ TagManager:
   - Vision
   - Ability
   - EnemyAttack
+  - SpawnPoint
+  - Parry
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - UI
   - Ignore Collision
   - Enemy
-  - 
+  - Player
   - 
   - 
   - 

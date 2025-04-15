@@ -3,31 +3,17 @@ using UnityEngine;
 
 public class ItensForAbilities : MonoBehaviour
 {
-    [SerializeField] private string abilityForAdd;
-    GameObject player;
-    Type abilityType;
-    private void Start()
+    [SerializeField] private AbilityData abilityToUnlock;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        abilityType = Type.GetType(abilityForAdd);
-        if (abilityType == null)
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Habilidade não encontrada");
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (abilityType != null)
-        {
-            if (collision.CompareTag("Player"))
+            var abilitySystem = other.GetComponent<PlayerAbilitySystem>();
+            if (abilitySystem != null && abilityToUnlock != null)
             {
-                player = collision.gameObject;
-                if (player.GetComponent(abilityType) == null)
-                {
-                    // Adiciona a habilidade ao jogador
-                    player.AddComponent(abilityType);
-                    Debug.Log("Player Pegou Dash");
-                }
-                Destroy(gameObject);
+                abilitySystem.UnlockAbility(abilityToUnlock);
+                Destroy(gameObject); // Remove o item do mundo
             }
         }
     }

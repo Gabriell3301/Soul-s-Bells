@@ -10,6 +10,18 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 targetPosition;
 
+
+    public CameraFollow instance;
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject); // Persiste entre cenas
+    }
     void FixedUpdate()
     {
         if (player != null)
