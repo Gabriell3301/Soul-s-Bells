@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7509803795864501367}
   - component: {fileID: 9083768810178634417}
   - component: {fileID: 5268937009733180059}
+  - component: {fileID: 6033682674912682705}
   m_Layer: 0
   m_Name: States Global
   m_TagString: Untagged
@@ -117,3 +118,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allAbilities: []
+--- !u!114 &6033682674912682705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6179362661366086478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41561e3565f17f94099423c7cd830759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moedaPrefab: {fileID: 7675743026372387499, guid: d9b2babed20c9b241987a4982f9c40c3, type: 3}

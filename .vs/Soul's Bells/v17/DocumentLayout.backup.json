@@ -3,132 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\sence\\menu\\options\\controllers\\rebindingsscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\sence\\menu\\options\\controllers\\rebindingsscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|c:\\users\\gabri\\documents\\soul\u0027s bells\\assets\\player\\parry\\playerparrymanage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\parry\\playerparrymanage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|c:\\users\\gabri\\documents\\soul\u0027s bells\\assets\\player\\player\\savesystem\\savebiding\\savebidingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\player\\savesystem\\savebiding\\savebidingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|c:\\users\\gabri\\documents\\soul\u0027s bells\\assets\\sence\\menu\\options\\controllers\\exitconfirmationdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\sence\\menu\\options\\controllers\\exitconfirmationdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\player\\savesystem\\savesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\player\\savesystem\\savesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\sence\\menu\\options\\options.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\sence\\menu\\options\\options.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\global scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\global scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\itens_coins\\coins\\coinsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\itens_coins\\coins\\coinsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\abilities\\playerabilitysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\abilities\\playerabilitysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\abilities\\abilitydatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\abilities\\abilitydatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\movement\\basic movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\movement\\basic movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\global scripts\\globalstates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\global scripts\\globalstates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\itens_coins\\coins\\coins.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\itens_coins\\coins\\coins.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\player\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\player\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\player\\lifeui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\player\\lifeui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\player\\playerdeathmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\player\\playerdeathmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\sence\\screenfader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\sence\\screenfader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\parry\\playerparryfeedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\parry\\playerparryfeedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|c:\\users\\gabri\\documents\\soul\u0027s bells\\assets\\player\\hitbox\u0027s\\playerhitbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\hitbox\u0027s\\playerhitbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\parry\\playerparry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\parry\\playerparry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\enemy\\attack\\moving attack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\enemy\\attack\\moving attack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\itens_coins\\coins\\coins.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\itens_coins\\coins\\coins.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\enemy\\attack\\enemyattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\enemy\\attack\\enemyattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\movement\\basic movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\movement\\basic movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\state\\playerstatelist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\state\\playerstatelist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\attack\\playerattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\attack\\playerattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\enemy\\enemyvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\enemy\\enemyvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\enemy\\meleeattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\enemy\\meleeattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\enemy\\enemyjump.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\enemy\\enemyjump.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\enemy\\enemyscriptvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\enemy\\enemyscriptvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\abilities\\move abilities\\mecanosalto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\abilities\\move abilities\\mecanosalto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\global scripts\\persistcanva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\global scripts\\persistcanva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\sence\\salas normais scripts\\scenetransitionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\sence\\salas normais scripts\\scenetransitionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\assets\\player\\input system\\playercontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{633E9D72-73E8-31AF-1994-AE516BB65F2D}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\input system\\playercontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -142,7 +42,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 5,
               "Title": "PlayerMovement.cs",
               "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Movement\\Basic Movement\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Player\\Movement\\Basic Movement\\PlayerMovement.cs",
@@ -155,7 +55,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 6,
               "Title": "PlayerStateList.cs",
               "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\State\\PlayerStateList.cs",
               "RelativeDocumentMoniker": "Assets\\Player\\State\\PlayerStateList.cs",
@@ -168,367 +68,66 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CoinsManager.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Itens_coins\\Coins\\CoinsManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Itens_coins\\Coins\\CoinsManager.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Itens_coins\\Coins\\CoinsManager.cs",
-              "RelativeToolTip": "Assets\\Itens_coins\\Coins\\CoinsManager.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBwAAAAcAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\Enemy.cs",
+              "RelativeDocumentMoniker": "Assets\\Enemy\\Enemy.cs",
+              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\Enemy.cs",
+              "RelativeToolTip": "Assets\\Enemy\\Enemy.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAUwDMAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T16:53:58.986Z",
+              "WhenOpened": "2025-04-16T08:35:07.914Z",
               "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ExitConfirmationDialog.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\Menu\\Options\\Controllers\\ExitConfirmationDialog.cs",
-              "RelativeDocumentMoniker": "Assets\\Sence\\Menu\\Options\\Controllers\\ExitConfirmationDialog.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\Menu\\Options\\Controllers\\ExitConfirmationDialog.cs",
-              "RelativeToolTip": "Assets\\Sence\\Menu\\Options\\Controllers\\ExitConfirmationDialog.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAowAIAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T11:32:59.568Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SaveBidingSystem.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\SaveSystem\\SaveBiding\\SaveBidingSystem.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Player\\SaveSystem\\SaveBiding\\SaveBidingSystem.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\SaveSystem\\SaveBiding\\SaveBidingSystem.cs",
-              "RelativeToolTip": "Assets\\Player\\Player\\SaveSystem\\SaveBiding\\SaveBidingSystem.cs",
-              "ViewState": "AgIAALwAAAAAAAAAAAAswPAAAAAuAAAAAAAAAA==",
+              "Title": "PlayerHitBox.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\HitBox\u0027s\\PlayerHitBox.cs",
+              "RelativeDocumentMoniker": "Assets\\Player\\HitBox\u0027s\\PlayerHitBox.cs",
+              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\HitBox\u0027s\\PlayerHitBox.cs",
+              "RelativeToolTip": "Assets\\Player\\HitBox\u0027s\\PlayerHitBox.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T10:01:43.921Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ReBindingsScript.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\Menu\\Options\\Controllers\\ReBindingsScript.cs",
-              "RelativeDocumentMoniker": "Assets\\Sence\\Menu\\Options\\Controllers\\ReBindingsScript.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\Menu\\Options\\Controllers\\ReBindingsScript.cs",
-              "RelativeToolTip": "Assets\\Sence\\Menu\\Options\\Controllers\\ReBindingsScript.cs",
-              "ViewState": "AgIAANEAAAAAAAAAAADwv98AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T09:26:08.945Z",
+              "WhenOpened": "2025-04-16T10:02:12.876Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "SaveSystem.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\SaveSystem\\SaveSystem.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Player\\SaveSystem\\SaveSystem.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\SaveSystem\\SaveSystem.cs",
-              "RelativeToolTip": "Assets\\Player\\Player\\SaveSystem\\SaveSystem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T08:23:44.481Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PlayerAbilitySystem.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Abilities\\PlayerAbilitySystem.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Abilities\\PlayerAbilitySystem.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Abilities\\PlayerAbilitySystem.cs",
-              "RelativeToolTip": "Assets\\Player\\Abilities\\PlayerAbilitySystem.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAtwGEAAABbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T15:28:39.858Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Options.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\Menu\\Options\\Options.cs",
-              "RelativeDocumentMoniker": "Assets\\Sence\\Menu\\Options\\Options.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\Menu\\Options\\Options.cs",
-              "RelativeToolTip": "Assets\\Sence\\Menu\\Options\\Options.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBYAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T08:32:43.477Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AbilityDataBase.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Abilities\\AbilityDataBase.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Abilities\\AbilityDataBase.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Abilities\\AbilityDataBase.cs",
-              "RelativeToolTip": "Assets\\Player\\Abilities\\AbilityDataBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T15:27:48.999Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "GameManager.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Global Scripts\\GameManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Global Scripts\\GameManager.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Global Scripts\\GameManager.cs",
-              "RelativeToolTip": "Assets\\Global Scripts\\GameManager.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAIwFMAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T08:53:56.281Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "GlobalStates.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Global Scripts\\GlobalStates.cs",
-              "RelativeDocumentMoniker": "Assets\\Global Scripts\\GlobalStates.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Global Scripts\\GlobalStates.cs",
-              "RelativeToolTip": "Assets\\Global Scripts\\GlobalStates.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T14:09:50.043Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
               "Title": "Coins.cs",
               "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Itens_coins\\Coins\\Coins.cs",
               "RelativeDocumentMoniker": "Assets\\Itens_coins\\Coins\\Coins.cs",
               "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Itens_coins\\Coins\\Coins.cs",
               "RelativeToolTip": "Assets\\Itens_coins\\Coins\\Coins.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAowBYAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwCYAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-07T16:57:52.271Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "PlayerHealth.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\PlayerHealth.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Player\\PlayerHealth.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\PlayerHealth.cs",
-              "RelativeToolTip": "Assets\\Player\\Player\\PlayerHealth.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAtwB4AAAAQAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "PlayerParryManage.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Parry\\PlayerParryManage.cs",
+              "RelativeDocumentMoniker": "Assets\\Player\\Parry\\PlayerParryManage.cs",
+              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Parry\\PlayerParryManage.cs",
+              "RelativeToolTip": "Assets\\Player\\Parry\\PlayerParryManage.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAkwBgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T14:07:45.412Z"
+              "WhenOpened": "2025-04-16T09:46:11.415Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "LifeUI.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\LifeUI.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Player\\LifeUI.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\LifeUI.cs",
-              "RelativeToolTip": "Assets\\Player\\Player\\LifeUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T19:26:59.11Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "ScreenFader.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\ScreenFader.cs",
-              "RelativeDocumentMoniker": "Assets\\Sence\\ScreenFader.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\ScreenFader.cs",
-              "RelativeToolTip": "Assets\\Sence\\ScreenFader.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAwwC4AAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T16:56:00.38Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "PlayerDeathManager.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\PlayerDeathManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Player\\PlayerDeathManager.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player\\PlayerDeathManager.cs",
-              "RelativeToolTip": "Assets\\Player\\Player\\PlayerDeathManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T16:58:09.051Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Moving attack.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\Attack\\Moving attack.cs",
-              "RelativeDocumentMoniker": "Assets\\Enemy\\Attack\\Moving attack.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\Attack\\Moving attack.cs",
-              "RelativeToolTip": "Assets\\Enemy\\Attack\\Moving attack.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAiwBEAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T18:06:34.945Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "PlayerParryFeedback.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Parry\\PlayerParryFeedback.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Parry\\PlayerParryFeedback.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Parry\\PlayerParryFeedback.cs",
-              "RelativeToolTip": "Assets\\Player\\Parry\\PlayerParryFeedback.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAgwBMAAABJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-02T18:07:18.763Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 2,
               "Title": "PlayerParry.cs",
               "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Parry\\PlayerParry.cs",
               "RelativeDocumentMoniker": "Assets\\Player\\Parry\\PlayerParry.cs",
               "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Parry\\PlayerParry.cs",
               "RelativeToolTip": "Assets\\Player\\Parry\\PlayerParry.cs",
-              "ViewState": "AgIAAG4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJQAAAAAAAAAAAAAALMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T18:08:43.83Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "EnemyAttack.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\Attack\\EnemyAttack.cs",
-              "RelativeDocumentMoniker": "Assets\\Enemy\\Attack\\EnemyAttack.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\Attack\\EnemyAttack.cs",
-              "RelativeToolTip": "Assets\\Enemy\\Attack\\EnemyAttack.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T18:05:41.464Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "EnemyVision.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\EnemyVision.cs",
-              "RelativeDocumentMoniker": "Assets\\Enemy\\EnemyVision.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\EnemyVision.cs",
-              "RelativeToolTip": "Assets\\Enemy\\EnemyVision.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAcwAkAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-16T16:28:14.776Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "PlayerAttack.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Attack\\PlayerAttack.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Attack\\PlayerAttack.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Attack\\PlayerAttack.cs",
-              "RelativeToolTip": "Assets\\Player\\Attack\\PlayerAttack.cs",
-              "ViewState": "AgIAAGcAAAAAAAAAAAAqwBgAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-20T15:19:50.088Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "MeleeAttack.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\MeleeAttack.cs",
-              "RelativeDocumentMoniker": "Assets\\Enemy\\MeleeAttack.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\MeleeAttack.cs",
-              "RelativeToolTip": "Assets\\Enemy\\MeleeAttack.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-26T20:45:11.218Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "EnemyJump.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\EnemyJump.cs",
-              "RelativeDocumentMoniker": "Assets\\Enemy\\EnemyJump.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\EnemyJump.cs",
-              "RelativeToolTip": "Assets\\Enemy\\EnemyJump.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-26T21:10:10.594Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "EnemyScriptVision.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\EnemyScriptVision.cs",
-              "RelativeDocumentMoniker": "Assets\\Enemy\\EnemyScriptVision.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Enemy\\EnemyScriptVision.cs",
-              "RelativeToolTip": "Assets\\Enemy\\EnemyScriptVision.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwA4AAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-08T13:39:12.277Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "MecanoSalto.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Abilities\\Move Abilities\\MecanoSalto.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Abilities\\Move Abilities\\MecanoSalto.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Abilities\\Move Abilities\\MecanoSalto.cs",
-              "RelativeToolTip": "Assets\\Player\\Abilities\\Move Abilities\\MecanoSalto.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAYwCAAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T23:36:34.973Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "PersistCanva.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Global Scripts\\PersistCanva.cs",
-              "RelativeDocumentMoniker": "Assets\\Global Scripts\\PersistCanva.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Global Scripts\\PersistCanva.cs",
-              "RelativeToolTip": "Assets\\Global Scripts\\PersistCanva.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T22:23:51.896Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "CameraFollow.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\CameraFollow.cs",
-              "RelativeDocumentMoniker": "Assets\\CameraFollow.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\CameraFollow.cs",
-              "RelativeToolTip": "Assets\\CameraFollow.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-27T16:05:03.464Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Player.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Player.cs",
-              "RelativeToolTip": "Assets\\Player\\Player.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-27T15:30:27.792Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "SceneTransitionManager.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\Salas Normais Scripts\\SceneTransitionManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Sence\\Salas Normais Scripts\\SceneTransitionManager.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Sence\\Salas Normais Scripts\\SceneTransitionManager.cs",
-              "RelativeToolTip": "Assets\\Sence\\Salas Normais Scripts\\SceneTransitionManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T11:21:07.975Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "PlayerControls.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Input System\\PlayerControls.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Input System\\PlayerControls.cs",
-              "ToolTip": "C:\\Users\\gabri\\Documents\\Soul\u0027s Bells\\Assets\\Player\\Input System\\PlayerControls.cs",
-              "RelativeToolTip": "Assets\\Player\\Input System\\PlayerControls.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-09T18:25:32.211Z"
             }
           ]
         }

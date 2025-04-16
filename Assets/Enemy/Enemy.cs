@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
     public int hits = 1;
 
     [Header("Drops")]
-    public GameObject coinPrefab; // Prefab da moeda
+    int numMoedas;
     public int numMoedasMin = 2; // Número mínimo de moedas
     public int numMoedasMax = 5; // Número máximo de moedas
 
@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("Jogador não encontrado! Verifique se o Player tem a tag correta.");
         }
+        numMoedas = Random.Range(numMoedasMin, numMoedasMax);
     }
 
     void Update()
@@ -72,20 +73,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void DropCoins()
-    {
-        // Determina o número aleatório de moedas a serem droppadas
-        int numMoedas = Random.Range(numMoedasMin, numMoedasMax);
-
-        for (int i = 0; i < numMoedas; i++)
-        {
-            // Posiciona a moeda no local do inimigo
-            Vector3 spawnPos = transform.position + new Vector3(Random.Range(-0.5f, 0.5f), 0.5f, 0); // Aleatoriza um pouco a posição
-
-            // Instancia a moeda
-            GameObject coin = Instantiate(coinPrefab, spawnPos, Quaternion.identity);
-        }
-    }
     void DetectPlayer()
     {
         playerDetected = Physics2D.OverlapCircle(transform.position, visionRange, playerLayer);
@@ -129,7 +116,7 @@ public class Enemy : MonoBehaviour
     }
     public void Die()
     {
-        DropCoins();
+        DropManager.Instance.SpawnMoeda(transform.position, numMoedas);
         Destroy(gameObject);
     }
     public void ApplyKnockback(Vector2 force)

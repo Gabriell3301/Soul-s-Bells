@@ -9,10 +9,10 @@ public class Player : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            Destroy(gameObject); // Impede duplicação ao voltar para a cena inicial
+            Destroy(gameObject); // Impede duplicaï¿½ï¿½o ao voltar para a cena inicial
             return;
         }
-
+        //this is a my test
         instance = this;
         DontDestroyOnLoad(gameObject); // Preserva o jogador ao trocar de cena
     }

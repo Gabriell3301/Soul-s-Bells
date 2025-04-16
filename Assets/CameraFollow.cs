@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player;       // A referência ao jogador
-    public float smoothSpeed = 0.125f;  // A suavidade da transição
-    public Vector3 offset;         // O deslocamento da câmera em relação ao jogador
+    public Transform player;       // A referï¿½ncia ao jogador
+    public float smoothSpeed = 0.125f;  // A suavidade da transiï¿½ï¿½o
+    public Vector3 offset;         // O deslocamento da cï¿½mera em relaï¿½ï¿½o ao jogador
 
     private Vector3 targetPosition;
 
@@ -26,13 +26,13 @@ public class CameraFollow : MonoBehaviour
     {
         if (player != null)
         {
-            // Define a posição desejada da câmera com base na posição do jogador + deslocamento
+            // Define a posiï¿½ï¿½o desejada da cï¿½mera com base na posiï¿½ï¿½o do jogador + deslocamento
             targetPosition = player.position + offset;
 
-            // Aplica a suavização do movimento com Lerp
+            // Aplica a suavizaï¿½ï¿½o do movimento com Lerp
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
 
-            // Atualiza a posição da câmera
+            // Atualiza a posiï¿½ï¿½o da cï¿½mera
             transform.position = smoothedPosition;
         }
     }
