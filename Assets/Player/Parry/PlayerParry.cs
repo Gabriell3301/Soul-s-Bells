@@ -5,176 +5,241 @@ using UnityEngine.InputSystem;
 public class PlayerParry : MonoBehaviour
 {
     [Header("Parry Settings")]
-    [SerializeField] private float parryWindow = 0.1f; // Tempo da janela de parry (em segundos)
-    [SerializeField] private float parryCooldown = 0.4f; // Tempo de recarga do parry (em segundos)
+    [SerializeField] private float parryActiveFrames = 0.1f;    
+    [SerializeField] private float parryStartupFrames = 0.05f;  
+    [SerializeField] private float parryCooldown = 0.5f;        // Aumentado para 0.5s
+    [SerializeField] private float invincibilityDuration = 0.5f;
+    [SerializeField] private float failedParryCooldown = 1f;    // Cooldown maior se errar o parry
+    [SerializeField] private float perfectParryWindow = 0.2f;   // Janela de tempo para parry perfeito
 
-    [Header("Parry Collider")]
-    [SerializeField] private Vector2 parryColliderSize = new Vector2(1.2f, 2f);
-    [SerializeField] private Vector2 parryColliderOffset = new Vector2(1f, 0f);
+    [Header("Circle Settings")]
+    [SerializeField] private float detectionRadius = 2f;        
+    [SerializeField] private float parryRadius = 1.5f;         
+    [SerializeField] private Color warningColor = Color.yellow;
+    [SerializeField] private Color parryColor = Color.green;   
+    [SerializeField] private Color failedParryColor = Color.red;
 
-    private float parryStartTime = 0f; // Momento em que o parry foi iniciado
-    private bool parryOnCooldown = false; // Indica se o parry está em cooldown
-    private bool parryAttempted = false; // Indica se o parry foi tentado
-    private int hitsToTake;
-    private BoxCollider2D parryCollider;
+    [Header("Components")]
+    [SerializeField] private PlayerParryFeedback feedback;
+    [SerializeField] private PlayerStateList playerState;
+    [SerializeField] private CircleCollider2D detectionCollider;
+    [SerializeField] private CircleCollider2D parryCollider;
 
-    private PlayerParryFeedback feedback; // Referência para feedback visual/sonoro
-    private PlayerParryManage manager; // Gerenciador de eventos de parry
-    private PlayerControls playerControls; // Controles do jogador
-    private PlayerStateList playerState; // Referência para estados do jogador
+    [Header("Parry State")]
+    private bool isInStartup = false;      
+    private bool isWarning = false;        
+    private Transform currentThreat;       
+    private bool canParry = true;         
+    private float lastParryTime = -999f;   // Controle do timing do Ãºltimo parry
+    private bool parrySuccess = false;     // Se o parry atual foi bem sucedido
+
+    // Componentes
+    private PlayerControls controls;        
 
     private void Awake()
     {
-        playerControls = new PlayerControls();
-        playerControls.Player.Parry.performed += OnParryPerformed;
-        SetupParryCollider();
+        controls = new PlayerControls();
+        controls.Player.Parry.performed += OnParryInput;
+        SetupColliders();
+    }
+
+    private void SetupColliders()
+    {
+        if (detectionCollider == null)
+        {
+            detectionCollider = gameObject.AddComponent<CircleCollider2D>();
+            detectionCollider.isTrigger = true;
+            detectionCollider.radius = detectionRadius;
+        }
+
+        if (parryCollider == null)
+        {
+            parryCollider = gameObject.AddComponent<CircleCollider2D>();
+            parryCollider.isTrigger = true;
+            parryCollider.radius = parryRadius;
+            parryCollider.enabled = false;
+        }
     }
 
     private void Start()
     {
-        feedback = GetComponentInChildren<PlayerParryFeedback>();
-        manager = GetComponent<PlayerParryManage>();
-        playerState = GetComponentInParent<PlayerStateList>();
-
-        if (feedback == null || manager == null)
+        if (feedback == null)
         {
-            Debug.LogError("PlayerParry: Feedback ou Manager não encontrado!");
+            feedback = GetComponent<PlayerParryFeedback>();
         }
 
         if (playerState == null)
         {
-            Debug.LogError("PlayerParry: PlayerStateList não encontrado!");
+            playerState = GetComponentInParent<PlayerStateList>();
+        }
+
+        if (playerState == null || feedback == null)
+        {
+            Debug.LogError("PlayerParry: Componentes necessÃ¡rios nÃ£o encontrados!");
         }
     }
 
-    private void SetupParryCollider()
+    private void Update()
     {
-        // Adicionar ou configurar o BoxCollider2D como trigger
-        parryCollider = GetComponent<BoxCollider2D>();
-        if (parryCollider == null)
-        {
-            parryCollider = gameObject.AddComponent<BoxCollider2D>();
-        }
-
-        parryCollider.isTrigger = true;
-        parryCollider.size = parryColliderSize;
-        parryCollider.offset = parryColliderOffset;
-        parryCollider.enabled = true;
+        UpdateParryState();
+        UpdateWarningVisibility();
     }
 
-    private void OnEnable() => playerControls.Enable();
-
-    private void OnDisable() => playerControls.Disable();
-
-    /// <summary>
-    /// Verifica se o jogador realizou um parry bem-sucedido
-    /// </summary>
-    public bool HasParried()
+    private void UpdateWarningVisibility()
     {
-        if (parryAttempted && Time.time <= parryStartTime + parryWindow && manager.IsEnemyAttackDetected())
+        if (isWarning && currentThreat != null)
         {
-            parryAttempted = false; // Reseta o estado após a verificação
-            return true;
-        }
-        return false;
-    }
+            float distance = Vector2.Distance(transform.position, currentThreat.position);
+            bool isInParryRange = distance <= parryRadius;
 
-    /// <summary>
-    /// Chamado quando o botão de parry é pressionado
-    /// </summary>
-    private void OnParryPerformed(InputAction.CallbackContext context)
-    {
-        if (!parryOnCooldown && !playerState.isInvulnerable)
-        {
-            TryParry();
-        }
-    }
-
-    /// <summary>
-    /// Abre a janela de parry e exibe o feedback amarelo.
-    /// </summary>
-    public void OpenParryWindow(int hits)
-    {
-        // Se o jogador estiver invulnerável, não abrir a janela de parry
-        if (playerState.isInvulnerable)
-            return;
-
-        hitsToTake = hits;
-        parryStartTime = Time.time;
-        feedback.ShowParryWindow(); // Exibe o aviso amarelo de parry
-        StartCoroutine(CloseParryWindow());
-    }
-
-    /// <summary>
-    /// Fecha a janela de parry após o tempo definido.
-    /// </summary>
-    private IEnumerator CloseParryWindow()
-    {
-        yield return new WaitForSeconds(parryWindow);
-
-        if (!parryAttempted && manager.IsEnemyAttackDetected())
-        {
-            manager.HandleParryFailure(hitsToTake); // Marca falha do parry se o jogador não tentou
-        }
-
-        feedback.HideParryWindow(); // Esconde o aviso amarelo após a janela expirar
-    }
-
-    /// <summary>
-    /// Tenta executar o parry, mostrando sucesso ou falha
-    /// </summary>
-    private void TryParry()
-    {
-        if (!manager.IsEnemyAttackDetected())
-        {
-            Debug.Log("Nenhum ataque detectado para parry.");
-            return;
-        }
-
-        parryAttempted = true;
-
-        // Verifica se estamos dentro da janela de parry
-        if (Time.time <= parryStartTime + parryWindow)
-        {
-            manager.HandleParrySuccess();
-            Debug.Log("Acertou o parry.");
+            if (isInParryRange)
+            {
+                feedback.UpdateWarningFill(1f);
+            }
+            else
+            {
+                feedback.UpdateWarningFill(0f);
+            }
         }
         else
         {
-            manager.HandleParryFailure(hitsToTake);
-            Debug.Log("Errou o parry ou não fez parry a tempo.");
+            feedback.UpdateWarningFill(0f);
+            currentThreat = null;
         }
-
-        StartCoroutine(StartCooldown());
     }
 
-    /// <summary>
-    /// Começa o tempo de espera para usar o Parry novamente
-    /// </summary>
-    private IEnumerator StartCooldown()
+    private void UpdateParryState()
     {
-        parryOnCooldown = true;
-        yield return new WaitForSeconds(parryCooldown);
-        parryOnCooldown = false;
+        if (isInStartup)
+        {
+            CancelInvoke();
+            Invoke(nameof(ActivateParry), parryStartupFrames);
+            Invoke(nameof(DeactivateParry), parryStartupFrames + parryActiveFrames);
+            
+            // Se nÃ£o acertar o parry, aplica o cooldown maior
+            if (!parrySuccess)
+            {
+                Invoke(nameof(ResetParry), parryStartupFrames + parryActiveFrames + failedParryCooldown);
+                feedback.ShowParryFailed(); // Feedback visual do erro
+            }
+            else
+            {
+                Invoke(nameof(ResetParry), parryStartupFrames + parryActiveFrames + parryCooldown);
+            }
+            
+            isInStartup = false;
+        }
     }
 
-    // Opcional: Visualização do collider de parry
+    private void OnParryInput(InputAction.CallbackContext context)
+    {
+        // Verifica se pode usar o parry e se passou o cooldown
+        if (canParry && !playerState.parring && !playerState.isInvulnerable && currentThreat != null)
+        {
+            float timeSinceLastParry = Time.time - lastParryTime;
+            if (timeSinceLastParry >= (parrySuccess ? parryCooldown : failedParryCooldown))
+            {
+                StartParry();
+                lastParryTime = Time.time;
+            }
+        }
+    }
+
+    private void StartParry()
+    {
+        isInStartup = true;
+        canParry = false;
+        parrySuccess = false; // Reseta o status do parry
+        playerState.SetParring(true);
+        feedback.ShowParryActive();
+    }
+
+    private void ActivateParry()
+    {
+        parryCollider.enabled = true;
+        playerState.SetInvulnerable(true);
+        feedback.ShowParryActive();
+    }
+
+    private void DeactivateParry()
+    {
+        parryCollider.enabled = false;
+        playerState.SetInvulnerable(false);
+        playerState.SetParring(false);
+        feedback.HideParryWindow();
+    }
+
+    private void ResetParry()
+    {
+        canParry = true;
+        playerState.SetParring(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("EnemyAttack"))
+        {
+            if (other.IsTouching(detectionCollider))
+            {
+                isWarning = true;
+                currentThreat = other.transform;
+            }
+
+            if (playerState.parring && other.IsTouching(parryCollider))
+            {
+                HandleSuccessfulParry(other);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("EnemyAttack") && other.IsTouching(detectionCollider))
+        {
+            isWarning = false;
+            currentThreat = null;
+        }
+    }
+
+    private void HandleSuccessfulParry(Collider2D attackCollider)
+    {
+        parrySuccess = true;
+        feedback.ShowSuccess();
+        StartCoroutine(InvincibilityRoutine());
+        Destroy(attackCollider.gameObject);
+    }
+
+    private IEnumerator InvincibilityRoutine()
+    {
+        playerState.SetInvulnerable(true);
+        yield return new WaitForSeconds(invincibilityDuration);
+        playerState.SetInvulnerable(false);
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        if (parryCollider != null)
-        {
-            Gizmos.DrawWireCube(
-                transform.position + new Vector3(parryCollider.offset.x, parryCollider.offset.y, 0),
-                new Vector3(parryCollider.size.x, parryCollider.size.y, 0.1f)
-            );
-        }
-        else
-        {
-            Gizmos.DrawWireCube(
-                transform.position + new Vector3(parryColliderOffset.x, parryColliderOffset.y, 0),
-                new Vector3(parryColliderSize.x, parryColliderSize.y, 0.1f)
-            );
-        }
+        // Desenha Ã¡rea de detecÃ§Ã£o
+        Gizmos.color = Color.yellow * 0.5f;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+
+        // Desenha Ã¡rea de parry com cor baseada no estado
+        Color parryAreaColor = playerState != null ? 
+            (playerState.parring ? 
+                (parrySuccess ? parryColor : failedParryColor) 
+                : Color.blue) 
+            : Color.blue;
+        
+        Gizmos.color = parryAreaColor;
+        Gizmos.DrawWireSphere(transform.position, parryRadius);
     }
 }
