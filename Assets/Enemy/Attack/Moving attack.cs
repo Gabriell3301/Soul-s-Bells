@@ -15,7 +15,7 @@ public class Movingattack : EnemyAttack
         player = FindObjectOfType<PlayerMovement>().transform;
         rb = GetComponent<Rigidbody2D>();
 
-        // Calcula a direção para o jogador
+        // Calcula a direï¿½ï¿½o para o jogador
         Vector2 direction = (player.position - transform.position).normalized;
 
         // Define a velocidade da bola para seguir o jogador
