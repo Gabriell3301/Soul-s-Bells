@@ -10,13 +10,15 @@ public class MeleeAttack : MonoBehaviour
 
     private float nextAttackTime = 0f;
     private Transform player;
+    private Enemy enemy;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        enemy = GetComponent<Enemy>();
     }
 
-    private void Update()
+    public void TryAttack()
     {
         if (player != null && Time.time >= nextAttackTime)
         {
@@ -42,7 +44,6 @@ public class MeleeAttack : MonoBehaviour
             playerHealth.TakeHit(attackDamage);
         }
     }
-
 
     private void OnDrawGizmosSelected()
     {

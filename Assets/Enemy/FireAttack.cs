@@ -4,57 +4,56 @@ using UnityEngine;
 
 public class FireAttack : MonoBehaviour
 {
-    public GameObject projectilePrefab; // Prefab do projÈtil
-    public Transform firePoint; // Ponto onde o projÈtil ser· disparado
+    public GameObject projectilePrefab; // Prefab do proj√©til
+    public Transform firePoint; // Ponto onde o proj√©til ser√° disparado
     public float fireRate = 1.5f; // Tempo entre tiros
     private float nextFireTime = 0f;
 
     public LayerMask groundLayer;
-    public float cliffDetectionDistance = 1f; // Dist‚ncia para detectar penhasco
+    public float cliffDetectionDistance = 1f; // Dist√¢ncia para detectar penhasco
     private Enemy enemy;
 
     private void Start()
     {
-        enemy = GetComponent<Enemy>(); // ObtÈm referÍncia ao script do inimigo
+        enemy = GetComponent<Enemy>(); // Obt√©m refer√™ncia ao script do inimigo
     }
 
-    private void Update()
+    public void TryFire()
     {
-        if (enemy.chasingPlayer)
+        if (enemy.IsPlayerDetected() && Time.time >= nextFireTime && !IsRetreating())
         {
-            // Se estiver no tempo certo, atira
-            if (Time.time >= nextFireTime)
-            {
-                Shoot();
-                nextFireTime = Time.time + fireRate;
-            }
+            Shoot();
+            nextFireTime = Time.time + fireRate;
         }
+    }
+
+    private bool IsRetreating()
+    {
+        float distanceToPlayer = Vector2.Distance(transform.position, enemy.GetPlayerPosition());
+        return distanceToPlayer < enemy.retreatDistance;
     }
 
     private void Shoot()
     {
-        if (enemy.playerDetected)
+        Debug.Log("Inimigo disparou!");
+
+        // Instancia o proj√©til e define a dire√ß√£o dele
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        EnemyAttack attack = projectile.GetComponent<EnemyAttack>();
+        if (attack != null)
         {
-            Debug.Log("Inimigo disparou!");
+            attack.Initialize(enemy);
+        }
+        else
+        {
+            Debug.Log("Attack not found");
+        }
+        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
 
-            // Instancia o projÈtil e define a direÁ„o dele
-            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-            EnemyAttack attack = projectile.GetComponent<EnemyAttack>();
-            if (attack != null)
-            {
-                attack.Initialize(enemy);
-            }
-            else
-            {
-                Debug.Log("Attack not founded");
-            }
-            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-
-            if (rb != null)
-            {
-                float direction = transform.localScale.x > 0 ? -1f : 1f; // Determina a direÁ„o do tiro com base no lado que o inimigo est· virado
-                rb.velocity = new Vector2(direction * 10f, 0); // Ajuste a velocidade conforme necess·rio
-            }
+        if (rb != null)
+        {
+            float direction = transform.localScale.x > 0 ? -1f : 1f; // Determina a dire√ß√£o do tiro com base no lado que o inimigo est√° virado
+            rb.velocity = new Vector2(direction * 10f, 0); // Ajuste a velocidade conforme necess√°rio
         }
     }
 }
