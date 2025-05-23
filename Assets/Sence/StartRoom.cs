@@ -17,17 +17,17 @@ public class StartRoom : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == gameObject.scene.name) // Certifica que est· rodando na cena correta
+        if (scene.name == gameObject.scene.name) // Certifica que est√° rodando na cena correta
         {
-            GameManager.Instance.SetCurrentRoom(scene.name);
+            SaveGameManager.Instance.SetCurrentRoom(scene.name);
 
             StartCoroutine(WaitAndTeleport(scene));
-            SceneManager.sceneLoaded -= OnSceneLoaded; // Remove o evento apÛs o uso
+            SceneManager.sceneLoaded -= OnSceneLoaded; // Remove o evento ap√≥s o uso
         }
     }
     private IEnumerator WaitAndTeleport(Scene scene)
     {
-        // Aguarda um frame extra apÛs a cena carregar completamente
+        // Aguarda um frame extra ap√≥s a cena carregar completamente
         yield return null;
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(Teleport(scene));
@@ -39,25 +39,22 @@ public class StartRoom : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
-            Debug.LogError("Jogador n„o encontrado!");
+            Debug.LogError("Jogador n√£o encontrado!");
             yield break;
         }
 
-        // Procurar o SpawnPoint **apenas dentro da cena carregada**
+        // Procurar o SpawnPoint apenas dentro da cena carregada
         GameObject spawnPoint = FindSpawnPointInScene(scene);
         if (spawnPoint == null)
         {
-            // This is a scam, this goes in and goes through this if (go to line: 53)
+            Debug.LogWarning("Nenhum SpawnPoint encontrado na cena. O jogador permanecer√° na posi√ß√£o atual.");
             yield break;
         }
 
         // Teleportar o jogador para o spawn point da nova cena
-        // But even with the spawnpoint being null, the teleport works, I don't know until when
         player.transform.position = spawnPoint.transform.position;
         Debug.Log("Jogador teleportado para: " + spawnPoint.transform.position);
-        // Espera um pequeno tempo para evitar transiÁıes abruptas
         yield return new WaitForSeconds(0.1f);
-
     }
     /// <summary>
     /// Find a game object with the tag "SpawnPoint" in the given scene.

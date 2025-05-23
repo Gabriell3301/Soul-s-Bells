@@ -5,7 +5,7 @@ using UnityEngine;
 public class LifeUI : MonoBehaviour
 {
     public GameObject hitPrefab; // Prefab do quadrado da vida
-    public Transform container; // Onde os quadrados ser„o criados
+    public Transform container; // Onde os quadrados ser√£o criados
     private List<GameObject> hitIcons = new List<GameObject>(); // Lista dos quadrados
 
     private int maxHits;
@@ -18,14 +18,14 @@ public class LifeUI : MonoBehaviour
 
     public void UpdateUI(int currentHits)
     {
-        // Remove todos os Ìcones antigos
+        // Remove todos os √≠cones antigos
         foreach (GameObject hit in hitIcons)
         {
             Destroy(hit);
         }
         hitIcons.Clear();
 
-        // Cria novos Ìcones baseados na vida atual
+        // Cria novos √≠cones baseados na vida atual
         for (int i = 0; i < currentHits; i++)
         {
             GameObject newHit = Instantiate(hitPrefab, container);

@@ -1,88 +1,127 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe que implementa um inimigo corpo a corpo, herdando comportamentos base do Enemy.
+/// </summary>
 public class MeleeEnemy : Enemy
 {
-    [Header("Ataque Melee")]
-    public int attackDamage = 1;
-    public float attackCooldown = 2f;
-    public float attackDuration = 0.5f;
-    public float attackRange = 2f;
-    public float attackRadius = 0.5f; // Raio do alcance de ataque
-    
-    [Header("References")]
-    public GameObject attackEffectPrefab;
-    
-    private bool canAttack = true;
-    private bool isAttacking = false;
-    
-    private MeleeAttack meleeAttack;
-    
+    [Header("Configurações de Ataque")]
+    [SerializeField] private float attackRadius = 0.5f; // Raio de detecção do ataque
+    [SerializeField] private int attackDamage = 10; // Dano do ataque
+    [SerializeField] private float attackCooldown = 1f; // Tempo entre ataques
+    [SerializeField] private float attackRange = 1f; // Alcance do ataque
+    [SerializeField] private float attackDuration = 0.5f; // Duração do ataque
+
+    private float attackTimer; // Timer para cooldown do ataque
+    private bool canAttack = true; // Indica se pode atacar
+
+    /// <summary>
+    /// Inicializa componentes específicos do inimigo corpo a corpo
+    /// </summary>
     protected override void Start()
     {
         base.Start();
-        meleeAttack = GetComponent<MeleeAttack>();
+        attackTimer = attackCooldown;
     }
-    
-    protected override void FixedUpdate()
+
+    /// <summary>
+    /// Atualiza o estado do inimigo corpo a corpo
+    /// </summary>
+    protected override void Update()
     {
-        base.FixedUpdate();
-        
-        if (chasingPlayer && meleeAttack != null)
+        base.Update();
+
+        if (die) return;
+
+        // Atualiza o timer de ataque
+        if (!canAttack)
         {
-            meleeAttack.TryAttack();
-        }
-    }
-    
-    private void StartAttack()
-    {
-        if (!canAttack || isAttacking) return;
-        
-        isAttacking = true;
-        canAttack = false;
-        
-        // Define a posição do centro do ataque
-        Vector2 attackCenter = transform.position + Vector3.right * (isFacingRight ? attackRange : -attackRange);
-        
-        // Spawn attack effect
-        if (attackEffectPrefab != null)
-        {
-            Instantiate(attackEffectPrefab, attackCenter, Quaternion.identity);
-        }
-        
-        // Check for hits
-        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackCenter, attackRadius, playerLayer);
-        foreach (Collider2D player in hitPlayers)
-        {
-            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            attackTimer -= Time.deltaTime;
+            if (attackTimer <= 0)
             {
-                playerHealth.TakeHit(attackDamage);
+                canAttack = true;
+                attackTimer = attackCooldown;
             }
         }
-        
-        // Reset attack state after duration
-        Invoke(nameof(EndAttack), attackDuration);
-        // Reset cooldown
-        Invoke(nameof(ResetAttackCooldown), attackCooldown);
     }
-    
-    private void EndAttack()
+
+    /// <summary>
+    /// Inicia o ataque do inimigo
+    /// </summary>
+    private void StartAttack()
     {
-        isAttacking = false;
+        if (!canAttack) return;
+
+        canAttack = false;
+        animator.SetTrigger("Attack");
+
+        // Detecta jogadores no alcance do ataque
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRadius, playerLayer);
+
+        // Aplica dano em todos os jogadores atingidos
+        foreach (Collider2D player in hitPlayers)
+        {
+            if (player.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+            {
+                playerHealth.TakeDamage(attackDamage);
+            }
+        }
+
+        // Reseta o estado de ataque após a duração
+        StartCoroutine(ResetAttackState());
     }
-    
-    private void ResetAttackCooldown()
+
+    /// <summary>
+    /// Reseta o estado de ataque após a duração
+    /// </summary>
+    private IEnumerator ResetAttackState()
     {
+        yield return new WaitForSeconds(attackDuration);
         canAttack = true;
     }
-    
+
+    /// <summary>
+    /// Persegue o jogador com comportamento específico para inimigo corpo a corpo
+    /// </summary>
+    protected override void ChasePlayer()
+    {
+        if (player == null) return;
+
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+        // Se estiver no alcance de ataque, para e ataca
+        if (distanceToPlayer <= attackRange)
+        {
+            rb.velocity = Vector2.zero;
+            if (canAttack)
+            {
+                StartAttack();
+            }
+            return;
+        }
+
+        // Caso contrário, persegue o jogador
+        Vector2 direction = (player.position - transform.position).normalized;
+        rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
+
+        // Vira o sprite se necessário
+        if ((direction.x > 0 && !isFacingRight) || (direction.x < 0 && isFacingRight))
+        {
+            Flip();
+        }
+    }
+
+    /// <summary>
+    /// Desenha gizmos para debug
+    /// </summary>
     protected override void OnDrawGizmosSelected()
     {
         base.OnDrawGizmosSelected();
-        
-        // Desenha o alcance do ataque
-        Vector2 attackCenter = transform.position + Vector3.right * (isFacingRight ? attackRange : -attackRange);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackCenter, attackRadius);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 } 

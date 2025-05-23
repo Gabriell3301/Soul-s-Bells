@@ -7,11 +7,12 @@ public class PlayerAttack : MonoBehaviour
 {
     [Header("Attack Settings")]
     [SerializeField] private int attackDamage = 1; // Dano do ataque
-    [SerializeField] private Transform sideAttackPoint, upAttackPoint, downAttackPoint; // Referência aos pontos de ataque
-    [SerializeField] private Vector2 attackRange = new(3f, 3.8f); // Tamanho da área de ataque lateral
-    [SerializeField] private Vector2 attackRangeUpAndDown = new(2.17f, 3.8f); // Tamanho da área de ataque vertical
+    [SerializeField] private Transform sideAttackPoint, upAttackPoint, downAttackPoint; // ReferÃªncia aos pontos de ataque
+    [SerializeField] private Vector2 attackRange = new(3f, 3.8f); // Tamanho da Ã¡rea de ataque lateral
+    [SerializeField] private Vector2 attackRangeUpAndDown = new(2.17f, 3.8f); // Tamanho da Ã¡rea de ataque vertical
     [SerializeField] private LayerMask enemyLayers; // Camadas que representam os inimigos
 
+    [Header("Animator")]
     private Animator animator;
     private PlayerStateList pStates;
     private PlayerControls playerControls;
@@ -34,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
     // Gerencia o ataque, dependendo da entrada do jogador
     private void HandleAttack(InputAction.CallbackContext context)
     {
-        if (!pStates.attacking && !pStates.isDashing)
+        if (!pStates.IsAttacking() && !pStates.IsDashing())
         {
             StartCoroutine(AttackRoutine());
         }
@@ -43,7 +44,7 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator AttackRoutine()
     {
         pStates.SetAttacking(true);
-        Debug.Log("Ataque começou");
+        Debug.Log("Ataque comeÃ§ou");
 
         PerformAttack();
 
@@ -53,19 +54,19 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("isAttacking", false);
     }
 
-    // Realiza o ataque com base na direção do jogador (cima, baixo ou lateral)
+    // Realiza o ataque com base na direÃ§Ã£o do jogador (cima, baixo ou lateral)
     private void PerformAttack()
     {
         Transform attackPoint;
         Vector2 currentAttackRange = attackRange;
 
-        // Define a direção do ataque
-        if (pStates.directionLook.y > 0.3f) // Ataque para cima
+        // Define a direÃ§Ã£o do ataque
+        if (pStates.GetDirectionLook().y > 0.3f) // Ataque para cima
         {
             attackPoint = upAttackPoint;
             currentAttackRange = attackRangeUpAndDown;
         }
-        else if (pStates.directionLook.y < -0.3f) // Ataque para baixo
+        else if (pStates.GetDirectionLook().y < -0.3f) // Ataque para baixo
         {
             attackPoint = downAttackPoint;
             currentAttackRange = attackRangeUpAndDown;
@@ -76,7 +77,7 @@ public class PlayerAttack : MonoBehaviour
             animator.SetBool("isAttacking", true);
         }
 
-        // Detecta inimigos na área de ataque
+        // Detecta inimigos na Ã¡rea de ataque
         Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, currentAttackRange, 0, enemyLayers);
 
         // Aplica dano aos inimigos atingidos
@@ -88,21 +89,18 @@ public class PlayerAttack : MonoBehaviour
     {
         foreach (Collider2D enemyCollider in enemies)
         {
-            if (!enemyCollider.CompareTag("Player"))
-            {
-                Enemy enemy = enemyCollider.GetComponent<Enemy>();
-                Rigidbody2D enemyRb = enemyCollider.GetComponent<Rigidbody2D>();
+            Enemy enemy = enemyCollider.GetComponent<Enemy>();
+            Rigidbody2D enemyRb = enemyCollider.GetComponent<Rigidbody2D>();
 
-                if (enemy != null && enemyRb != null)
-                {
-                    enemy.TakeDamage(attackDamage);
-                    enemy.ApplyKnockback(enemy.transform.position);
-                }
+            if (enemy != null && enemyRb != null && !enemy.die)
+            {
+                enemy.TakeDamage(attackDamage);
+                enemy.ApplyKnockback(enemy.transform.position);
             }
         }
     }
 
-    // Desenha as áreas de ataque no editor
+    // Desenha as Ã¡reas de ataque no editor
     private void OnDrawGizmosSelected()
     {
         if (sideAttackPoint == null || upAttackPoint == null || downAttackPoint == null) return;

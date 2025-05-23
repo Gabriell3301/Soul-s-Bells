@@ -19,16 +19,16 @@ public class SavePoint : MonoBehaviour
                 var abilitySystem = player.GetComponent<PlayerAbilitySystem>();
                 if (abilitySystem != null)
                 {
-                    //Debug.Log($"Numero de moedas para salvar: {GameManager.Instance.Moedas}");
-                    //string currentRoom = GameManager.Instance.CurrentRoomName; // <-- você precisa expor isso no GameManager
-                    //int moedas = GameManager.Instance.Moedas;
+                    //Debug.Log($"Numero de moedas para salvar: {SaveGameManager.Instance.Moedas}");
+                    //string currentRoom = SaveGameManager.Instance.CurrentRoomName; // <-- você precisa expor isso no SaveGameManager
+                    //int moedas = SaveGameManager.Instance.Moedas;
 
-                    //GameManager.Instance.SaveGame(currentRoom, moedas, abilitySystem);
+                    //SaveGameManager.Instance.SaveGame(currentRoom, moedas, abilitySystem);
 
                     //Debug.Log("💾 Jogo salvo com sucesso!");
 
                     //// ⚠️ Para teste: carrega logo após salvar
-                    GameManager.Instance.LoadGame();
+                    SaveGameManager.Instance.LoadGame();
                 }
             }
         }

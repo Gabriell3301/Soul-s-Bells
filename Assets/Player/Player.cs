@@ -7,13 +7,19 @@ public class Player : MonoBehaviour
     private static Player instance;
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (instance == null)
         {
-            Destroy(gameObject); // Impede duplica��o ao voltar para a cena inicial
-            return;
+            instance = this;
+            // Garante que o objeto seja root antes de chamar DontDestroyOnLoad
+            if (transform.parent != null)
+            {
+                transform.SetParent(null);
+            }
+            DontDestroyOnLoad(gameObject);
         }
-        //this is a my test
-        instance = this;
-        DontDestroyOnLoad(gameObject); // Preserva o jogador ao trocar de cena
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

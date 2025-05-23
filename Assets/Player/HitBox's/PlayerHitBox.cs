@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Gerencia a hitbox do jogador para detecção de dano.
+/// </summary>
 public class PlayerHitBox : MonoBehaviour
 {
     private PlayerHealth playerHealth;
@@ -17,25 +18,19 @@ public class PlayerHitBox : MonoBehaviour
         if (playerHealth == null || playerState == null)
         {
             Debug.LogError("PlayerHitBox: PlayerHealth ou PlayerStateList não encontrado!");
+            enabled = false;
+            return;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // Se não for um ataque inimigo ou o player estiver invulnerável, ignora
-        if (!collision.CompareTag("EnemyAttack") || playerState.isInvulnerable)
-            return;
+        if (playerState.IsInvincible()) return;
 
-        EnemyAttack attackComponent = collision.GetComponent<EnemyAttack>();
+        var attackComponent = other.GetComponent<AttackComponent>();
         if (attackComponent != null)
         {
-            // Aplica o dano ao player
-            playerHealth.TakeHit(attackComponent.Hits);
-            
-            // Destroi o ataque
-            attackComponent.Destroythis();
-            
-            Debug.Log($"Player tomou {attackComponent.Hits} de dano por colisão direta.");
+            playerHealth.TakeDamage(attackComponent.Hits);
         }
     }
 }

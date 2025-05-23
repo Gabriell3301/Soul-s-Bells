@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Gerencia o ataque corpo a corpo dos inimigos.
+/// </summary>
 public class MeleeAttack : MonoBehaviour
 {
-    public float attackRange = 1.5f; // Alcance do ataque
-    public int attackDamage = 2; // Dano causado ao jogador
-    public float attackCooldown = 1.5f; // Tempo entre ataques
+    [SerializeField] private int attackDamage = 1;
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private float attackCooldown = 1f;
+    [SerializeField] private LayerMask playerLayer;
 
     private float nextAttackTime = 0f;
     private Transform player;
@@ -41,7 +45,7 @@ public class MeleeAttack : MonoBehaviour
 
         if (playerHealth != null)
         {
-            playerHealth.TakeHit(attackDamage);
+            playerHealth.TakeDamage(attackDamage);
         }
     }
 
@@ -50,5 +54,17 @@ public class MeleeAttack : MonoBehaviour
         // Desenha o alcance do ataque no editor
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(attackDamage);
+            }
+        }
     }
 }

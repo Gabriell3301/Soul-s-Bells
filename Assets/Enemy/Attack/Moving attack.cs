@@ -2,29 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Movingattack : EnemyAttack
+
+/// <summary>
+/// Gerencia o ataque móvel dos inimigos.
+/// </summary>
+public class MovingAttack : MonoBehaviour
 {
-    Rigidbody2D rb;
-    public float velocityProject = 10f;
-    private Transform player;
+    [SerializeField] private int attackDamage = 1;
     private PlayerHealth playerH;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = FindObjectOfType<PlayerMovement>().transform;
-        rb = GetComponent<Rigidbody2D>();
 
-        // Calcula a dire��o para o jogador
-        Vector2 direction = (player.position - transform.position).normalized;
-
-        // Define a velocidade da bola para seguir o jogador
-        rb.velocity = direction * velocityProject;
-        StartCoroutine(StartCounter());
-    }
-    private IEnumerator StartCounter()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        yield return new WaitForSeconds(3);
-        Destroythis();
+        if (other == null) return;
+
+        if (other.CompareTag("Player"))
+        {
+            playerH = other.GetComponent<PlayerHealth>();
+            if (playerH != null)
+            {
+                playerH.TakeDamage(attackDamage);
+            }
+            else
+            {
+                Debug.LogWarning("PlayerHealth não encontrado no objeto do jogador!");
+            }
+        }
     }
 }

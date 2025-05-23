@@ -45,12 +45,14 @@ public class ReturnMenu : MonoBehaviour
     }
     public void Restart()
     {
-        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reinicia a cena atual
+        Time.timeScale = 1;
     }
     public void ReturneMainMenu()
     {
-        Time.timeScale = 1f; // Garante que o jogo não esteja pausado
+        pauseMenu.SetActive(false);
         SceneManager.LoadScene(0); // Substitua pelo nome da sua cena de menu
+        Time.timeScale = 1f; // Garante que o jogo nï¿½o esteja pausado
     }
 }

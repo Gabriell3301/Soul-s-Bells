@@ -5,21 +5,21 @@ using UnityEngine.InputSystem;
 public class MecanoSalto : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private GameObject invisiblePlatformPrefab; // Prefab do chão invisível
-    [SerializeField] private float maxChargeTime = 3f; // Tempo máximo de carregamento
-    [SerializeField] private float chargeRate = 10f; // Taxa de carregamento de força
-    [SerializeField] private float maxJumpForce = 20f; // Força máxima do pulo
+    [SerializeField] private GameObject invisiblePlatformPrefab; // Prefab do chï¿½o invisï¿½vel
+    [SerializeField] private float maxChargeTime = 3f; // Tempo mï¿½ximo de carregamento
+    [SerializeField] private float chargeRate = 10f; // Taxa de carregamento de forï¿½a
+    [SerializeField] private float maxJumpForce = 20f; // Forï¿½a mï¿½xima do pulo
     [SerializeField] private Transform pointLocal;
 
     private float originalGravity;
     private float currentChargeTime = 0f; // Tempo atual de carregamento
-    private GameObject currentPlatform; // Referência ao chão invisível criado
+    private GameObject currentPlatform; // Referï¿½ncia ao chï¿½o invisï¿½vel criado
     private Rigidbody2D rb;
     private PlayerStateList pState;
-    private bool isFullyCharged = false; // Controle para evitar múltiplos disparos
-    private Coroutine chargeCoroutine; // Referência para a corrotina de carregamento
+    private bool isFullyCharged = false; // Controle para evitar mï¿½ltiplos disparos
+    private Coroutine chargeCoroutine; // Referï¿½ncia para a corrotina de carregamento
 
-    private PlayerControls playerControls; // Referência ao sistema de controle
+    private PlayerControls playerControls; // Referï¿½ncia ao sistema de controle
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class MecanoSalto : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable(); // Ativa o controle
-        playerControls.Player.Jump.started += OnChargeStarted;   // Quando começa a carregar
+        playerControls.Player.Jump.started += OnChargeStarted;   // Quando comeï¿½a a carregar
         playerControls.Player.Jump.canceled += OnChargeReleased; // Quando solta
     }
 
@@ -49,7 +49,7 @@ public class MecanoSalto : MonoBehaviour
 
     private void OnChargeStarted(InputAction.CallbackContext context)
     {
-        if (pState.jumping)
+        if (pState.IsJumping())
         {
             StartCharging();
         }
@@ -57,7 +57,7 @@ public class MecanoSalto : MonoBehaviour
 
     private void OnChargeReleased(InputAction.CallbackContext context)
     {
-        if (pState.isCharging)
+        if (pState.IsCharging())
         {
             StopCharging();
             PerformJump();
@@ -70,7 +70,7 @@ public class MecanoSalto : MonoBehaviour
         currentChargeTime = 0f; // Reseta o tempo de carregamento
         isFullyCharged = false;
 
-        // Cria o chão invisível e imobiliza o jogador
+        // Cria o chï¿½o invisï¿½vel e imobiliza o jogador
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
         rb.isKinematic = true; // Imobiliza completamente o jogador
@@ -96,17 +96,17 @@ public class MecanoSalto : MonoBehaviour
         while (currentChargeTime < maxChargeTime)
         {
             currentChargeTime += Time.deltaTime * chargeRate; // Incrementa o carregamento
-            currentChargeTime = Mathf.Clamp(currentChargeTime, 0, maxChargeTime); // Limita ao tempo máximo
+            currentChargeTime = Mathf.Clamp(currentChargeTime, 0, maxChargeTime); // Limita ao tempo mï¿½ximo
 
-            // Disparo automático ao atingir o máximo de carregamento
+            // Disparo automï¿½tico ao atingir o mï¿½ximo de carregamento
             if (currentChargeTime >= maxChargeTime && !isFullyCharged)
             {
-                isFullyCharged = true; // Evita múltiplos disparos
+                isFullyCharged = true; // Evita mï¿½ltiplos disparos
                 PerformJump();
-                yield break; // Sai da corrotina após disparar o pulo
+                yield break; // Sai da corrotina apï¿½s disparar o pulo
             }
 
-            yield return null; // Aguarda o próximo frame
+            yield return null; // Aguarda o prï¿½ximo frame
         }
     }
 
@@ -115,16 +115,16 @@ public class MecanoSalto : MonoBehaviour
         Debug.Log("Pulo executado");
         pState.SetCharging(false);
 
-        // Calcula a força do pulo com base no carregamento
+        // Calcula a forï¿½a do pulo com base no carregamento
         float jumpForce = Mathf.Lerp(0, maxJumpForce, currentChargeTime / maxChargeTime);
-        Debug.Log($"Força do pulo: {jumpForce}");
+        Debug.Log($"Forï¿½a do pulo: {jumpForce}");
         rb.gravityScale = originalGravity;
         rb.isKinematic = false; // Restaura o movimento normal do jogador
 
         // Aplica um impulso vertical para o pulo
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-        // Remove o chão invisível após o pulo
+        // Remove o chï¿½o invisï¿½vel apï¿½s o pulo
         if (currentPlatform != null)
         {
             Destroy(currentPlatform);

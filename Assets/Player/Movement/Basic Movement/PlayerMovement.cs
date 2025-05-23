@@ -5,6 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Controla todo o movimento e a√ß√µes do jogador, incluindo movimento b√°sico, pulo e wall slide.
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
@@ -28,15 +31,16 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement Instance;
     private PlayerControls playerControls;
     private PlayerStateList pstates;
+    private Animator animator;
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);  // Se j· existe uma inst‚ncia, destrua o novo objeto
+            Destroy(gameObject);  // Se j√° existe uma inst√¢ncia, destrua o novo objeto
         }
         else
         {
-            Instance = this;  // Define esta inst‚ncia como a inst‚ncia global
+            Instance = this;  // Define esta inst√¢ncia como a inst√¢ncia global
         }
         playerControls = new PlayerControls();
         playerControls.Player.Jump.performed += Jump;
@@ -56,46 +60,96 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         scale = transform.localScale;
         pstates = GetComponent<PlayerStateList>();
         direction = 1;
         StartCoroutine(ChangeStates());
     }
+    /// <summary>
+    /// Gerencia as anima√ß√µes do jogador
+    /// </summary>
+    private void HandleAnimation()
+    {
+        // Anima√ß√£o de andar
+        if (direction != 0 && moveX != Vector2.zero)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
+        // Anima√ß√£o de pulo
+        if (!Grounded() && rb.velocity.y > 0)
+        {
+            animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
+        }
+
+        // Anima√ß√£o de queda
+        if (!Grounded() && rb.velocity.y < 0)
+        {
+            animator.SetBool("isFalling", true);
+        }
+        else
+        {
+            animator.SetBool("isFalling", false);
+        }
+    }
+
+    /// <summary>
+    /// Gerencia os estados do jogador
+    /// </summary>
     private IEnumerator ChangeStates()
     {
         while (true)
         {
-            //Set State Walking
-            if (moveX.x != 0)
-            {
-                pstates.SetWalking(true);
-            }
-            else
-            {
-                pstates.SetWalking(false);
-            }
-
-            //Set State Jumping
-            if (!Grounded())
-            {
-                pstates.SetJumping(true);
-            }
-            else
-            {
-                pstates.SetJumping(false);
-            }
+            UpdateMovementState();
+            HandleAnimation();
             yield return null;
+        }
+    }
+
+    private void UpdateMovementState()
+    {
+        if (rb.velocity.x != 0)
+        {
+            pstates.SetWalking(true);
+        }
+        else
+        {
+            pstates.SetWalking(false);
+        }
+
+        if (rb.velocity.y > 0)
+        {
+            pstates.SetJumping(true);
+            pstates.SetFalling(false);
+        }
+        else if (rb.velocity.y < 0)
+        {
+            pstates.SetJumping(false);
+            pstates.SetFalling(true);
+        }
+        else
+        {
+            pstates.SetFalling(false);
         }
     }
     // Update is called once per frame
     void Update()
     {
-        if (pstates.isDashing)
+        if (pstates.IsDashing())
         {
             return;
         }
-        if(!pstates.isCharging)
+        if(!pstates.IsCharging())
         {
             GetValueForMove();
             MoveX();
@@ -136,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
         // Pular
         if (Grounded())
         {
-            // Aplica a forÁa de pulo
+            // Aplica a for√ßa de pulo
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
         // Verifica se a tecla de pulo foi solta antes de atingir o pico do pulo
@@ -151,34 +205,34 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce((fallMultiplier - 1) * Physics2D.gravity.y * Time.deltaTime * Vector2.up, ForceMode2D.Force);
         }
         // Aplicar gravidade extra para pequenos pulos
-        else if (rb.velocity.y > 0 && context.performed && !pstates.isDashing)
+        else if (rb.velocity.y > 0 && context.performed && !pstates.IsDashing())
         {
-            //Aqui est· o erro, porque quando clica no spaÁo, ele muda a velocidade e freia o personagem. (Ou n„o)
+            //Aqui est√° o erro, porque quando clica no spa√ßo, ele muda a velocidade e freia o personagem. (Ou n√£o)
             rb.AddForce((lowJumpMultiplier - 1) * Physics2D.gravity.y * Time.deltaTime * Vector2.up, ForceMode2D.Force);
         }
 
     }
     /// <summary>
-    /// Verifica se o jogador est· no ch„o
+    /// Verifica se o jogador est√° no ch√£o
     /// </summary>
     /// <returns></returns>
     private bool Grounded()
     {
-        // Dist‚ncia do Raycast (pequena o suficiente para detectar o ch„o prÛximo)
+        // Dist√¢ncia do Raycast (pequena o suficiente para detectar o ch√£o pr√≥ximo)
         float rayLength = 0.1f;
 
         // Posicionamentos dos Raycasts (ajuste conforme o tamanho do seu personagem)
         Vector3 leftRayPosition = groundCheck.position + new Vector3(-1, 0, 0);
         Vector3 rightRayPosition = groundCheck.position + new Vector3(1, 0, 0);
 
-        // LanÁar os Raycasts (central, esquerdo e direito)
+        // Lan√ßar os Raycasts (central, esquerdo e direito)
         bool centralRay = Physics2D.Raycast(groundCheck.position, Vector2.down, rayLength, whatIsGround);
         bool leftRay = Physics2D.Raycast(leftRayPosition, Vector2.down, rayLength, whatIsGround);
         bool rightRay = Physics2D.Raycast(rightRayPosition, Vector2.down, rayLength, whatIsGround);
 
 
         pstates.SetGrounded(centralRay || leftRay || rightRay);
-        // Se qualquer um dos raios detectar o ch„o, retorna true
+        // Se qualquer um dos raios detectar o ch√£o, retorna true
         return centralRay || leftRay || rightRay;
     }
 }

@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public class CoinsManager : MonoBehaviour
 {
-    // Instância Singleton
+    // Instï¿½ncia Singleton
     public static CoinsManager Instance { get; private set; }
 
     public int moedas = 0; // Quantidade de moedas do jogador
-    public TextMeshProUGUI moedasText; // Referência ao Text da UI para exibir moedas
+    public TextMeshProUGUI moedasText; // Referï¿½ncia ao Text da UI para exibir moedas
 
-    // Inicialização do Singleton
+    // Inicializaï¿½ï¿½o do Singleton
     void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // Garantir que só existe uma instância do CoinsManager
+            Destroy(gameObject); // Garantir que sï¿½ existe uma instï¿½ncia do CoinsManager
         }
         else
         {
@@ -29,11 +29,11 @@ public class CoinsManager : MonoBehaviour
         moedas = quantidade;
         AtualizarInterface();
     }
-    // Método para adicionar moedas
+    // Mï¿½todo para adicionar moedas
     public void AdicionarMoeda(int valor)
     {
         moedas += valor;
-        GameManager.Instance.AddMoeda(moedas);
+        SaveGameManager.Instance.AddMoeda(moedas);
         AtualizarInterface();
     }
 

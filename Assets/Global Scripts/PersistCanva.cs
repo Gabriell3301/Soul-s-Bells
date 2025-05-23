@@ -11,11 +11,16 @@ public class PersistCanva : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Mantém o Canvas entre cenas
+            // Garante que o objeto seja root antes de chamar DontDestroyOnLoad
+            if (transform.parent != null)
+            {
+                transform.SetParent(null);
+            }
+            DontDestroyOnLoad(gameObject); // MantÃ©m o Canvas entre cenas
         }
         else
         {
-            Destroy(gameObject); // Garante que não existam múltiplos Canvas
+            Destroy(gameObject); // Garante que nÃ£o existam mÃºltiplos Canvas
         }
     }
 }

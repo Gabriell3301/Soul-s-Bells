@@ -33,7 +33,7 @@ public class PlayerDash : MonoBehaviour, IAbility
         dashData = data as DashData;
         if (dashData == null)
         {
-            Debug.LogError("DashData inválido ao inicializar PlayerDash.");
+            Debug.LogError("DashData invï¿½lido ao inicializar PlayerDash.");
             return;
         }
         dashSpeed = dashData.dashSpeed;
@@ -56,7 +56,7 @@ public class PlayerDash : MonoBehaviour, IAbility
 
     void Update()
     {
-        if (pState.Grounded)
+        if (pState.IsGrounded())
         {
             canDash = true;
             hasDashedInAir = false;
@@ -65,7 +65,7 @@ public class PlayerDash : MonoBehaviour, IAbility
 
     private void PerformedDash(InputAction.CallbackContext context)
     {
-        if (canDash && (!hasDashedInAir || pState.Grounded) && !pState.isCharging && !dashInCoolDown)
+        if (canDash && (!hasDashedInAir || pState.IsGrounded()) && !pState.IsCharging() && !dashInCoolDown)
         {
             StartCoroutine(Dashing());
         }
@@ -76,8 +76,8 @@ public class PlayerDash : MonoBehaviour, IAbility
         // Inicia o dash
         canDash = false;
         dashInCoolDown = true;
-        // Marca que o jogador usou o dash no ar, se não estiver no chão
-        if (!pState.Grounded)
+        // Marca que o jogador usou o dash no ar, se nï¿½o estiver no chï¿½o
+        if (!pState.IsGrounded())
         {
             hasDashedInAir = true;
         }
@@ -88,24 +88,24 @@ public class PlayerDash : MonoBehaviour, IAbility
         rb.gravityScale = 0;
         rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0); // Define a velocidade do dash no eixo horizontal
 
-        yield return new WaitForSeconds(dashDuration); // Aguarda a duração do dash
+        yield return new WaitForSeconds(dashDuration); // Aguarda a duraï¿½ï¿½o do dash
 
         // Termina o dash
         trailRender.emitting = false;
         rb.gravityScale = originalGravity;
         pState.SetDashing(false);
 
-        // Espera o cooldown antes de permitir o próximo dash
+        // Espera o cooldown antes de permitir o prï¿½ximo dash
         yield return new WaitForSeconds(dashCooldown);
 
-        if (pState.Grounded)
+        if (pState.IsGrounded())
         {
             dashInCoolDown = false;
             canDash = true;
         }
         else
         {
-            // No ar, permite o próximo dash após o cooldown
+            // No ar, permite o prï¿½ximo dash apï¿½s o cooldown
             dashInCoolDown = false;
         }
     }

@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+/// <summary>
+/// Gerencia o sistema de salvamento e carregamento do jogo.
+/// </summary>
+public class SaveGameManager : MonoBehaviour
 {
     public string CurrentRoomName { get; private set; }
     public int Moedas { get; private set; }
 
-    public static GameManager Instance;
+    public static SaveGameManager Instance;
     private void Awake()
     {
         if (Instance == null)
