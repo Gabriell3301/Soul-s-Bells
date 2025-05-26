@@ -53,6 +53,7 @@ public abstract class Enemy : MonoBehaviour
     private const float PATROL_REACH_THRESHOLD = 0.2f;
     private const float CHASE_STOP_MARGIN = 0.4f;
 
+
     protected virtual void Start()
     {
         InitializeComponents();
@@ -238,36 +239,38 @@ public abstract class Enemy : MonoBehaviour
             Flip();
         }
     }
-
-    public virtual void TakeDamage(int damage)
+    public void TakeDamage(int amount, DamageType type, Vector2 sourcePosition, float knockbackForce)
     {
         if (!canBeHit || die) return;
 
+        // Aplica dano com tipo específico
+        Hp = Mathf.Max(0, Hp - amount);
+        Debug.Log($"{gameObject.name} levou {amount} de dano do tipo {type}");
+
+        // Animação de hit
         if (animator != null)
         {
             animator.SetTrigger("Hit");
+            animator.SetBool("isAlive", true);
         }
-        
-        StartCoroutine(HitCooldown());
-        Debug.Log($"{gameObject.name} levou {damage} de dano.");
-        
-        Hp = Mathf.Max(0, Hp - damage); // Garante que HP não fique negativo
-        
+
+        // Aplica knockback
+        ApplyKnockback(sourcePosition, knockbackForce);
+
+        // Verifica morte
         if (Hp <= 0)
         {
             Die();
         }
-        else if (animator != null)
+        else
         {
-            animator.SetBool("isAlive", true);
+            StartCoroutine(HitCooldown());
         }
     }
-
-    private IEnumerator HitCooldown()
+        // Versão simplificada mantendo compatibilidade
+    public virtual void TakeDamage(int damage)
     {
-        canBeHit = false;
-        yield return new WaitForSeconds(HIT_COOLDOWN_TIME);
-        canBeHit = true;
+        TakeDamage(damage, DamageType.Slashing, transform.position, 0f);
     }
 
     public virtual void Die()
@@ -313,15 +316,36 @@ public abstract class Enemy : MonoBehaviour
         // Implementação específica de cada inimigo
     }
 
-    public virtual void ApplyKnockback(Vector2 force)
+    private void ApplyKnockback(Vector2 sourcePosition, float knockbackForce)
     {
-        if (!isKnockbacked && !die)
+        if (knockbackForce <= 0 || isKnockbacked) return;
+
+        if (TryGetComponent<Rigidbody2D>(out var rb))
         {
-            isKnockbacked = true;
+            // Calcula direção do knockback (da fonte do dano para o inimigo)
+            Vector2 knockbackDirection = ((Vector2)transform.position - sourcePosition).normalized;
+            
+            // Aplica força
             rb.velocity = Vector2.zero;
-            rb.AddForce(force, ForceMode2D.Impulse);
+            rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+            
+            // Ativa estado de knockback
+            isKnockbacked = true;
             StartCoroutine(KnockbackRecovery());
+            
+            Debug.Log($"Knockback aplicado: Força {knockbackForce}, Direção {knockbackDirection}");
         }
+        else
+        {
+            Debug.LogWarning("Knockback não aplicado: Rigidbody2D não encontrado");
+        }
+    }
+
+    private IEnumerator HitCooldown()
+    {
+        canBeHit = false;
+        yield return new WaitForSeconds(HIT_COOLDOWN_TIME);
+        canBeHit = true;
     }
 
     protected IEnumerator KnockbackRecovery()
@@ -390,7 +414,7 @@ public abstract class Enemy : MonoBehaviour
     {
         return chasingPlayer;
     }
-
+    
     public float GetHealthPercentage()
     {
         return Hp > 0 ? (float)Hp / 3f : 0f; // Assumindo HP máximo de 3

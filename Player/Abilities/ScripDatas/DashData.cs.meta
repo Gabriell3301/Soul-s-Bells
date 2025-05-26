@@ -3,7 +3,12 @@ guid: e092f59313d05394988680a2fec20801
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - abilityIcon: {instanceID: 0}
+  - abilityScript: {instanceID: 0}
+  - unlockSound: {instanceID: 0}
+  - equipSound: {instanceID: 0}
+  - activationSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -1,13 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static Cinemachine.DocumentationSortingAttribute;
-using static UnityEngine.Mesh;
 
-public class PlayerDash : MonoBehaviour, IAbility
+public class PlayerDash : BaseAbility
 {
+    [Header("Dash References")]
+    [SerializeField] private TrailRenderer trailRender;
+    private Rigidbody2D rb;
+    private PlayerStateList pState;
+    private PlayerControls playerControls;
+
+    [Header("Dash Parameters")]
     private float dashSpeed;
     private float dashDuration;
     private float dashCooldown;
@@ -16,97 +19,202 @@ public class PlayerDash : MonoBehaviour, IAbility
     private bool dashInCoolDown = false;
     private bool canDash = true;
     private float originalGravity;
-    private TrailRenderer trailRender;
-    private Rigidbody2D rb;
-    private PlayerStateList pState;
-    private PlayerControls playerControls;
-
-    private DashData dashData;
-
     private void Awake()
     {
+        Debug.Log("PlayerDash - Awake chamado");
         playerControls = new PlayerControls();
-        playerControls.Player.Dash.performed += PerformedDash;
-    }
-    public void Initialize(AbilityData data)
-    {
-        dashData = data as DashData;
-        if (dashData == null)
+        
+        // Verifica se a ação existe
+        try
         {
-            Debug.LogError("DashData inv�lido ao inicializar PlayerDash.");
-            return;
+            var dashAction = playerControls.Player.Dash;
+            Debug.Log("Ação Dash encontrada no Input System");
+            dashAction.performed += ctx => 
+            {
+                Debug.Log("Input de dash detectado! (Tecla pressionada)");
+                Activate();
+            };
         }
-        dashSpeed = dashData.dashSpeed;
-        dashDuration = dashData.dashDuration;
-        dashCooldown = dashData.dashCooldown;
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Erro ao configurar input: {e.Message}");
+        }
     }
-    void Start()
+    protected override void OnInitialize()
     {
-        trailRender = GetComponent<TrailRenderer>();
+        Debug.Log("OnInitialize - Iniciando dash ability");
+        
+        // Get required components
+        rb = GetComponent<Rigidbody2D>();
+        Debug.Log(rb != null ? "Rigidbody2D encontrado" : "ERRO: Rigidbody2D não encontrado!");
+
         pState = GetComponent<PlayerStateList>();
-        if (!TryGetComponent<Rigidbody2D>(out rb))
+        Debug.Log(pState != null ? "PlayerStateList encontrado" : "ERRO: PlayerStateList não encontrado!");
+        
+        if (trailRender == null)
         {
-            Destroy(this);
+            trailRender = GetComponentInChildren<TrailRenderer>();
+            Debug.Log(trailRender != null ? "TrailRenderer encontrado nos children" : "TrailRenderer não encontrado");
         }
-        originalGravity = rb.gravityScale;
+
+        // Initialize input
+        playerControls = new PlayerControls();
+        playerControls.Player.Dash.performed += ctx => 
+        {
+            Debug.Log("Input de dash detectado!");
+            Activate();
+        };
+        
+        // Set dash parameters from data
+        if (abilityData is DashData dashData)
+        {
+            dashSpeed = dashData.dashSpeed;
+            dashDuration = dashData.dashDuration;
+            dashCooldown = dashData.TotalCooldown;
+            originalGravity = rb.gravityScale;
+            
+            Debug.Log($"Dados do dash carregados - Speed: {dashSpeed}, Duration: {dashDuration}, Cooldown: {dashCooldown}");
+        }
+        else
+        {
+            Debug.LogError("Dados de habilidade não são do tipo DashData ou estão faltando!");
+            enabled = false;
+        }
     }
 
-    private void OnEnable() => playerControls.Enable();
-    private void OnDisable() => playerControls.Disable();
+    private void OnEnable()
+    {
+        Debug.Log("PlayerDash habilitado");
+        playerControls?.Enable();
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("PlayerDash desabilitado");
+        playerControls?.Disable();
+    }
 
     void Update()
     {
         if (pState.IsGrounded())
         {
+            if (!canDash) Debug.Log("Resetando dash - jogador está no chão");
             canDash = true;
             hasDashedInAir = false;
         }
     }
 
-    private void PerformedDash(InputAction.CallbackContext context)
+    protected override void OnActivate()
     {
-        if (canDash && (!hasDashedInAir || pState.IsGrounded()) && !pState.IsCharging() && !dashInCoolDown)
+        Debug.Log("OnActivate chamado");
+        if (CanDash())
         {
-            StartCoroutine(Dashing());
-        }
-    }
-
-    private IEnumerator Dashing()
-    {
-        // Inicia o dash
-        canDash = false;
-        dashInCoolDown = true;
-        // Marca que o jogador usou o dash no ar, se n�o estiver no ch�o
-        if (!pState.IsGrounded())
-        {
-            hasDashedInAir = true;
-        }
-
-        pState.SetDashing(true);
-        trailRender.emitting = true;
-
-        rb.gravityScale = 0;
-        rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0); // Define a velocidade do dash no eixo horizontal
-
-        yield return new WaitForSeconds(dashDuration); // Aguarda a dura��o do dash
-
-        // Termina o dash
-        trailRender.emitting = false;
-        rb.gravityScale = originalGravity;
-        pState.SetDashing(false);
-
-        // Espera o cooldown antes de permitir o pr�ximo dash
-        yield return new WaitForSeconds(dashCooldown);
-
-        if (pState.IsGrounded())
-        {
-            dashInCoolDown = false;
-            canDash = true;
+            Debug.Log("Condições para dash satisfeitas - iniciando dash");
+            StartCoroutine(PerformDash());
         }
         else
         {
-            // No ar, permite o pr�ximo dash ap�s o cooldown
-            dashInCoolDown = false;
+            Debug.Log("Dash não pode ser ativado agora. Razões:");
+            if (!canDash) Debug.Log("- canDash é false");
+            if (hasDashedInAir && !pState.IsGrounded()) Debug.Log("- Já deu dash no ar e não está no chão");
+            if (dashInCoolDown) Debug.Log("- Dash em cooldown");
+            if (pState.IsCharging()) Debug.Log("- Jogador está carregando");
         }
+    }
+
+    private bool CanDash()
+    {
+        bool canPerformDash = canDash && (!hasDashedInAir || pState.IsGrounded()) 
+                           && !dashInCoolDown && !pState.IsCharging();
+        
+        Debug.Log($"CanDash retornando: {canPerformDash}");
+        return canPerformDash;
+    }
+
+    private IEnumerator PerformDash()
+    {
+        Debug.Log("PerformDash iniciado");
+        
+        // Setup dash state
+        canDash = false;
+        dashInCoolDown = true;
+        hasDashedInAir = !pState.IsGrounded();
+        pState.SetDashing(true);
+        
+        Debug.Log($"Estado do dash - No ar: {!pState.IsGrounded()}, Dashing: {pState.IsDashing()}");
+
+        if (trailRender != null)
+        {
+            trailRender.emitting = true;
+            Debug.Log("TrailRenderer ativado");
+        }
+
+        // Store original values
+        float originalGravity = rb.gravityScale;
+        Vector2 originalVelocity = rb.velocity;
+        Debug.Log($"Valores originais - Gravity: {originalGravity}, Velocity: {originalVelocity}");
+
+        // Apply dash force
+        rb.gravityScale = 0f;
+        float dashDirection = transform.localScale.x;
+        rb.velocity = new Vector2(dashDirection * dashSpeed, 0f);
+        
+        Debug.Log($"Dash aplicado - Direção: {dashDirection}, Nova velocidade: {rb.velocity}");
+
+        // Wait for dash duration
+        Debug.Log($"Esperando duração do dash: {dashDuration}s");
+        yield return new WaitForSeconds(dashDuration);
+
+        // Reset physics
+        rb.gravityScale = originalGravity;
+        rb.velocity = originalVelocity;
+        Debug.Log("Física resetada para valores originais");
+
+        // Clean up effects
+        if (trailRender != null)
+        {
+            trailRender.emitting = false;
+            Debug.Log("TrailRenderer desativado");
+        }
+        
+        pState.SetDashing(false);
+        Debug.Log("Estado de dashing desativado");
+
+        // Cooldown period
+        Debug.Log($"Iniciando cooldown: {dashCooldown}s");
+        yield return new WaitForSeconds(dashCooldown);
+        
+        dashInCoolDown = false;
+        Debug.Log("Cooldown completo - dash disponível");
+        
+        if (pState.IsGrounded())
+        {
+            canDash = true;
+            Debug.Log("canDash reativado (jogador está no chão)");
+        }
+    }
+
+    protected override void OnDeactivate()
+    {
+        Debug.Log("OnDeactivate chamado");
+        // Cleanup if dash is interrupted
+        if (trailRender != null)
+        {
+            trailRender.emitting = false;
+            Debug.Log("TrailRenderer forçado a desativar");
+        }
+        
+        if (pState != null)
+        {
+            pState.SetDashing(false);
+            Debug.Log("Estado de dashing forçado a desativar");
+        }
+    }
+
+    protected override bool CanActivateCustom()
+    {
+        bool result = CanDash();
+        Debug.Log($"CanActivateCustom retornando: {result}");
+        return result;
     }
 }
