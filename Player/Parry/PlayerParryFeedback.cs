@@ -305,7 +305,7 @@ public class PlayerParryFeedback : MonoBehaviour
             warningPulseCoroutine = null;
         }
 
-        if (warningCircle != null)
+        if (warningCircle != null && warningCircle.gameObject.activeSelf)
         {
             StartCoroutine(FadeOutWarning());
         }
