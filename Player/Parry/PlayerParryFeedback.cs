@@ -677,15 +677,15 @@ public class PlayerParryFeedback : MonoBehaviour
 
     private void CleanupTextures()
     {
-        // Limpa texturas criadas dinamicamente para evitar memory leaks
-        if (warningCircle?.sprite?.texture != null)
+        // Apenas limpa as referências, não destrói as texturas
+        if (warningCircle?.sprite != null)
         {
-            DestroyImmediate(warningCircle.sprite.texture);
+            warningCircle.sprite = null;
         }
         
-        if (parryCircle?.sprite?.texture != null)
+        if (parryCircle?.sprite != null)
         {
-            DestroyImmediate(parryCircle.sprite.texture);
+            parryCircle.sprite = null;
         }
     }
 

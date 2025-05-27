@@ -15,11 +15,7 @@ public class PlayerDesintegrate : BaseAbility
     private bool isHolding;
     private bool showTargetingGizmo;
     private List<Transform> targetEnemies = new List<Transform>();
-    private bool quickReleaseRegistered; // Nova flag para detectar releases rápidos
-    
-    [Header("Configurações")]
-    public float quickReleaseThreshold = 0.15f; // Tempo máximo para considerar um quick release
-    public float minHoldTimeForTargeting = 0.3f; // Tempo mínimo antes de começar targeting
+    private bool quickReleaseRegistered;
     
     [Header("Visual Feedback")]
     public GameObject chargingEffect;
@@ -67,6 +63,7 @@ public class PlayerDesintegrate : BaseAbility
         targetEnemies.Clear();
         quickReleaseRegistered = false;
         
+        Debug.Log($"[Desintegrate] Ativado - Iniciando hold");
         StartCoroutine(HoldDetectionRoutine());
         StartChargingVisualEffect();
     }
@@ -76,6 +73,8 @@ public class PlayerDesintegrate : BaseAbility
         isHolding = false;
         showTargetingGizmo = false;
         
+        Debug.Log($"[Desintegrate] Desativado - Hold time: {holdTime:F2}s, Quick Release: {quickReleaseRegistered}");
+        
         StopChargingVisualEffect();
         
         DesintagreateData data = (abilityData as DesintagreateData);
@@ -84,10 +83,12 @@ public class PlayerDesintegrate : BaseAbility
         if (holdTime < data.holdThreshold && !quickReleaseRegistered)
         {
             quickReleaseRegistered = true;
+            Debug.Log("[Desintegrate] Executando quick release - Raio para frente");
             CreateForwardDamageRay();
         }
         else if (holdTime >= data.holdThreshold)
         {
+            Debug.Log("[Desintegrate] Executando hold completo - Raios de instakill");
             CreateInstantKillRays();
         }
     }
@@ -96,6 +97,8 @@ public class PlayerDesintegrate : BaseAbility
     {
         DesintagreateData data = (abilityData as DesintagreateData);
         bool targetingStarted = false;
+        
+        Debug.Log("[Desintegrate] Iniciando rotina de detecção de hold");
         
         while (isHolding)
         {
@@ -106,19 +109,26 @@ public class PlayerDesintegrate : BaseAbility
             UpdateChargingEffect(progress);
             
             // Começar targeting apenas após um tempo mínimo
-            if (holdTime >= minHoldTimeForTargeting && !targetingStarted)
+            if (holdTime >= data.holdThreshold * 0.5f && !targetingStarted) // Usa metade do holdThreshold como tempo mínimo
             {
                 targetingStarted = true;
+                Debug.Log($"[Desintegrate] Targeting iniciado após {data.holdThreshold * 0.5f:F2}s");
             }
             
             // Buscar inimigos continuamente durante o carregamento (após tempo mínimo)
             if (targetingStarted && holdTime >= data.holdThreshold)
             {
                 targetEnemies = FindEnemiesInRange();
+                if (targetEnemies.Count > 0)
+                {
+                    Debug.Log($"[Desintegrate] Encontrados {targetEnemies.Count} alvos durante hold");
+                }
             }
             
             yield return null;
         }
+        
+        Debug.Log("[Desintegrate] Rotina de detecção de hold finalizada");
     }
 
     private void CreateInstantKillRays()
@@ -153,14 +163,16 @@ public class PlayerDesintegrate : BaseAbility
     {
         ClearRays();
         
+        DesintagreateData data = (abilityData as DesintagreateData);
+        
         // Usar direção da câmera ou do firePoint
         Vector2 shootDirection = Camera.main != null ? 
             Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position : 
             firePoint.right;
         shootDirection.Normalize();
         
-        // Posição à frente do player
-        Vector2 rayPosition = (Vector2)firePoint.position + shootDirection * 2f;
+        // Posição à frente do player usando a distância do ScriptableObject
+        Vector2 rayPosition = (Vector2)firePoint.position + shootDirection * data.forwardDistance;
         
         GameObject rayObj = CreateDamageRayAt(rayPosition, shootDirection);
         if (rayObj != null)
@@ -215,6 +227,7 @@ public class PlayerDesintegrate : BaseAbility
 
     private GameObject CreateDamageRayAt(Vector2 position, Vector2 direction)
     {
+        DesintagreateData data = (abilityData as DesintagreateData);
         if (rayPrefab == null)
         {
             Debug.LogError("[Desintegrate] Não é possível instanciar - rayPrefab é nulo!");
@@ -250,7 +263,7 @@ public class PlayerDesintegrate : BaseAbility
             damageTrigger = rayObj.AddComponent<DamageTrigger>();
         }
         
-        damageTrigger.Initialize(2); // 2 de dano
+        damageTrigger.Initialize((int)data.quickRayDamage); // Usa o dano do ScriptableObject
         
         // Destruir após alguns segundos
         Destroy(rayObj, 2f);
@@ -360,10 +373,7 @@ public class PlayerDesintegrate : BaseAbility
         if (Keyboard.current.kKey.wasReleasedThisFrame)
         {
             // Se foi um release rápido, marcar como quick release
-            if (holdTime < quickReleaseThreshold)
-            {
-                quickReleaseRegistered = true;
-            }
+            quickReleaseRegistered = true;
             Deactivate();
         }
     }
@@ -397,18 +407,17 @@ public class PlayerDesintegrate : BaseAbility
             Gizmos.DrawWireSphere(firePoint.position, 0.2f);
             
             Vector2 direction = Camera.main != null ? Camera.main.transform.right : firePoint.right;
-            Vector2 rayPos = (Vector2)firePoint.position + direction * 5f;
+            Vector2 rayPos = (Vector2)firePoint.position + direction * data.forwardDistance;
             
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(firePoint.position, direction * 5f);
-            Gizmos.DrawWireCube(rayPos, new Vector2(2f, 8f));
+            Gizmos.DrawRay(firePoint.position, direction * data.forwardDistance);
+            Gizmos.DrawWireCube(rayPos, data.damageBoxSize);
         }
         
         // Indicador de progresso do carregamento
         if (isHolding)
         {
-            DesintagreateData gizmoData = (abilityData as DesintagreateData);
-            float progress = Mathf.Clamp01(holdTime / gizmoData.holdThreshold);
+            float progress = Mathf.Clamp01(holdTime / data.holdThreshold);
             Gizmos.color = Color.Lerp(Color.white, Color.red, progress);
             Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.up * 1f, 0.5f + progress * 1f);
         }
