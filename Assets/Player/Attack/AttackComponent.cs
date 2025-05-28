@@ -19,15 +19,8 @@ public abstract class AttackComponent : MonoBehaviour
             if (other.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.TakeDamage(damage);
-                ApplyKnockback(enemy);
                 hits++;
             }
         }
-    }
-
-    protected virtual void ApplyKnockback(Enemy enemy)
-    {
-        Vector2 knockbackDirection = (enemy.transform.position - transform.position).normalized;
-        enemy.ApplyKnockback(knockbackDirection * knockbackForce);
     }
 } 

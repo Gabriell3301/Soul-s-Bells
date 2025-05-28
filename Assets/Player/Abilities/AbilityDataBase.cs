@@ -22,7 +22,14 @@ public class AbilityDataBase : MonoBehaviour
     {
         return allAbilities.Find(a => a.abilityName == name);
     }
-    // M�todo para adicionar habilidades ao banco de dados
+    
+    // Novo método para obter todas as habilidades
+    public List<AbilityData> GetAllAbilities()
+    {
+        return new List<AbilityData>(allAbilities); // Retorna uma cópia para evitar modificações acidentais
+    }
+    
+    // Método para adicionar habilidades ao banco de dados
     public void AddAbility(AbilityData ability)
     {
         if (!allAbilities.Contains(ability))
@@ -30,5 +37,17 @@ public class AbilityDataBase : MonoBehaviour
             allAbilities.Add(ability);
             Debug.Log($"Habilidade '{ability.abilityName}' adicionada ao banco de dados.");
         }
+    }
+    
+    // Método para verificar se uma habilidade existe no banco
+    public bool HasAbility(AbilityData ability)
+    {
+        return allAbilities.Contains(ability);
+    }
+    
+    // Método para obter habilidades por categoria (se você tiver categorias)
+    public List<AbilityData> GetAbilitiesByCategory(string category)
+    {
+        return allAbilities.FindAll(a => a.category == category); // Assumindo que AbilityData tem um campo category
     }
 }

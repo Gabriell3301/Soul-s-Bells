@@ -89,7 +89,7 @@ public class Bullet : MonoBehaviour, IEnemyAttack
 
     public void OnParried()
     {
-        // O projétil será refletido pelo PlayerParry
+        Destroy(gameObject);
     }
 
     public void OnReflected(Enemy target)

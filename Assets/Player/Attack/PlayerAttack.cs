@@ -94,8 +94,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (enemy != null && enemyRb != null && !enemy.die)
             {
-                enemy.TakeDamage(attackDamage);
-                enemy.ApplyKnockback(enemy.transform.position);
+                enemy.TakeDamage(attackDamage, DamageType.Slashing, transform.position, 5f);
             }
         }
     }

@@ -31,27 +31,54 @@ public class PlayerAbilitySystem : MonoBehaviour
             }
         }
     }
+    
     public void EquipAbility(AbilityData ability)
     {
         if (ability.unlocked && !equippedAbilities.Contains(ability))
         {
             equippedAbilities.Add(ability);
             ability.equipped = true;
+            
+            // Ativa o script da habilidade quando equipada
+            ActivateAbilityScript(ability);
+            
+            Debug.Log($"Habilidade '{ability.abilityName}' equipada!");
         }
     }
+    
+    // Novo método para desequipar habilidade
+    public void UnequipAbility(AbilityData ability)
+    {
+        if (equippedAbilities.Contains(ability))
+        {
+            equippedAbilities.Remove(ability);
+            ability.equipped = false;
+            
+            // Desativa o script da habilidade quando desequipada
+            DeactivateAbilityScript(ability);
+            
+            Debug.Log($"Habilidade '{ability.abilityName}' desequipada!");
+        }
+    }
+    
     public List<AbilityData> GetEquippedAbilities() => equippedAbilities;
     public List<AbilityData> GetUnlockedAbilities() => unlockedAbilities;
+    
     public void ClearAbilities()
     {
         foreach (var ability in unlockedAbilities)
         {
             ability.unlocked = false;
             ability.equipped = false;
+            
+            // Desativa todos os scripts quando limpa as habilidades
+            DeactivateAbilityScript(ability);
         }
 
         unlockedAbilities.Clear();
         equippedAbilities.Clear();
     }
+    
     // Método para ativar o script da habilidade
     private void ActivateAbilityScript(AbilityData ability)
     {
@@ -95,7 +122,40 @@ public class PlayerAbilitySystem : MonoBehaviour
         }
         else
         {
+            // Reativa o componente se já existir
+            if (existingComponent is MonoBehaviour mono)
+            {
+                mono.enabled = true;
+            }
             Debug.Log($"O script '{ability.abilityScript.name}' já está ativo no player.");
+        }
+    }
+    
+    // Novo método para desativar o script da habilidade
+    private void DeactivateAbilityScript(AbilityData ability)
+    {
+        if (ability == null || ability.abilityScript == null)
+            return;
+
+        Type abilityType = ability.abilityScript.GetClass();
+        
+        if (abilityType == null)
+            return;
+
+        Component existingComponent = gameObject.GetComponent(abilityType);
+
+        if (existingComponent != null)
+        {
+            // Opção 1: Apenas desabilitar o componente
+            if (existingComponent is MonoBehaviour mono)
+            {
+                mono.enabled = false;
+                Debug.Log($"Script '{ability.abilityScript.name}' desabilitado.");
+            }
+            
+            // Opção 2: Remover completamente o componente (descomente se preferir)
+            // Destroy(existingComponent);
+            // Debug.Log($"Script '{ability.abilityScript.name}' removido do player.");
         }
     }
 }

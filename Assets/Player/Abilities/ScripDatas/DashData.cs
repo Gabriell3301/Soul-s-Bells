@@ -7,5 +7,4 @@ public class DashData : AbilityData
 {
     public float dashSpeed;
     public float dashDuration;
-    public float dashCooldown;
 }
